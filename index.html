@@ -50,6 +50,25 @@
       font-weight: bold;
       color: #2c3e50;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    #restartBtn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    #restartBtn:hover {
+      background-color: #0069d9;
+    }
   </style>
 </head>
 <body>
@@ -68,18 +87,24 @@
     Computer: <span id="compScore" class="highlight">0</span>
   </div>
 
+  <button id="restartBtn" class="hidden" onclick="resetGame()">Play Again</button>
+
   <script>
     const resultText = document.getElementById("resultText");
     const userScoreSpan = document.getElementById("userScore");
     const compScoreSpan = document.getElementById("compScore");
+    const buttons = document.querySelectorAll(".choice-btn");
+    const restartBtn = document.getElementById("restartBtn");
 
     let userScore = 0;
     let compScore = 0;
+    let gameOver = false;
 
     function playGame(userChoice) {
+      if (gameOver) return;
+
       const choices = ["rock", "paper", "scissors"];
       const compChoice = choices[Math.floor(Math.random() * 3)];
-
       let result = "";
 
       if (userChoice === compChoice) {
@@ -96,9 +121,38 @@
         compScore++;
       }
 
-      resultText.textContent = result;
       userScoreSpan.textContent = userScore;
       compScoreSpan.textContent = compScore;
+      resultText.textContent = result;
+
+      checkGameOver();
+    }
+
+    function checkGameOver() {
+      if (userScore === 10 || compScore === 10) {
+        gameOver = true;
+        const finalMessage = userScore === 10 ? "🎉 You reached 10 points and won the game!" : "💻 Computer reached 10 points. You lost!";
+        resultText.textContent = finalMessage;
+
+        // Disable buttons
+        buttons.forEach(btn => btn.disabled = true);
+        // Show restart button
+        restartBtn.classList.remove("hidden");
+      }
+    }
+
+    function resetGame() {
+      userScore = 0;
+      compScore = 0;
+      gameOver = false;
+      userScoreSpan.textContent = "0";
+      compScoreSpan.textContent = "0";
+      resultText.textContent = "";
+
+      // Enable buttons
+      buttons.forEach(btn => btn.disabled = false);
+      // Hide restart button
+      restartBtn.classList.add("hidden");
     }
   </script>
 
