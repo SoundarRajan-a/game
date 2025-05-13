@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .choices {
+      margin: 20px 0;
+    }
+
+    .choice-btn {
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .choice-btn:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    .scoreboard {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Rock, Paper, Scissors ✊🖐✌</h1>
+
+  <div class="choices">
+    <button class="choice-btn" onclick="playGame('rock')">Rock</button>
+    <button class="choice-btn" onclick="playGame('paper')">Paper</button>
+    <button class="choice-btn" onclick="playGame('scissors')">Scissors</button>
+  </div>
+
+  <div class="result" id="resultText"></div>
+  <div class="scoreboard">
+    You: <span id="userScore" class="highlight">0</span> |
+    Computer: <span id="compScore" class="highlight">0</span>
+  </div>
+
+  <script>
+    const resultText = document.getElementById("resultText");
+    const userScoreSpan = document.getElementById("userScore");
+    const compScoreSpan = document.getElementById("compScore");
+
+    let userScore = 0;
+    let compScore = 0;
+
+    function playGame(userChoice) {
+      const choices = ["rock", "paper", "scissors"];
+      const compChoice = choices[Math.floor(Math.random() * 3)];
+
+      let result = "";
+
+      if (userChoice === compChoice) {
+        result = `It's a draw! Both chose ${userChoice}.`;
+      } else if (
+        (userChoice === "rock" && compChoice === "scissors") ||
+        (userChoice === "paper" && compChoice === "rock") ||
+        (userChoice === "scissors" && compChoice === "paper")
+      ) {
+        result = `You win! ${userChoice} beats ${compChoice}.`;
+        userScore++;
+      } else {
+        result = `You lose! ${compChoice} beats ${userChoice}.`;
+        compScore++;
+      }
+
+      resultText.textContent = result;
+      userScoreSpan.textContent = userScore;
+      compScoreSpan.textContent = compScore;
+    }
+  </script>
+
+</body>
+</html>
