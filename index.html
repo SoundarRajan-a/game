@@ -20,6 +20,7 @@
             --white: #ffffff;
             --gray: #6c757d;
             --gray-light: #e9ecef;
+            --gold: #FFD700;
         }
         
         * {
@@ -164,6 +165,20 @@
             background-color: #e68a19;
         }
         
+        .btn-info {
+            background-color: var(--info);
+            color: var(--white);
+        }
+        
+        .btn-info:hover {
+            background-color: #3a7bd5;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
         .text-center {
             text-align: center;
         }
@@ -249,6 +264,14 @@
         .user-name {
             font-weight: 600;
             margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .verified-badge {
+            color: var(--gold);
+            font-size: 14px;
         }
         
         .user-coins {
@@ -275,6 +298,47 @@
             padding: 30px 0;
         }
         
+        /* User Menu */
+        .menu-container {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 250px;
+            z-index: 99;
+            display: none;
+        }
+        
+        .menu-item {
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-item:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
         /* Quiz Card */
         .quiz-card {
             background-color: var(--white);
@@ -282,6 +346,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             padding: 30px;
             margin-bottom: 30px;
+            display: none;
         }
         
         .quiz-header {
@@ -561,6 +626,270 @@
             border-radius: 8px;
         }
         
+        /* Admin User Management */
+        .admin-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 20px;
+        }
+        
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .admin-tab:hover:not(.active) {
+            border-bottom-color: var(--gray);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .users-list {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .user-item:last-child {
+            border-bottom: none;
+        }
+        
+        .user-item-info {
+            flex: 1;
+        }
+        
+        .user-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .user-item-email {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .user-item-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .user-stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-weight: 600;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .user-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .message-form {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .messages-list {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .message-item:last-child {
+            border-bottom: none;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .message-sender {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .message-date {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .message-content {
+            margin-bottom: 10px;
+        }
+        
+        /* Notifications */
+        .notifications-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .notification-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .notification-title {
+            font-weight: 500;
+        }
+        
+        .notification-date {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .notification-content {
+            margin-bottom: 10px;
+        }
+        
+        /* Upcoming Events */
+        .events-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .event-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-weight: 500;
+        }
+        
+        .event-date {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .event-content {
+            margin-bottom: 10px;
+        }
+        
+        /* User Dashboard */
+        .user-dashboard-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
+        }
+        
+        .user-welcome {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .user-coins-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .user-coins-display i {
+            color: var(--warning);
+        }
+        
+        /* Preview Container */
+        .preview-container {
+            background-color: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .preview-container h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .preview-container ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+        
+        .preview-container li {
+            padding: 5px 0;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .form-row {
@@ -579,27 +908,22 @@
             .admin-actions {
                 flex-direction: column;
             }
-            .preview-container {
-    background-color: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.preview-container h4 {
-    color: var(--primary);
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--gray-light);
-}
-
-.preview-container ul {
-    padding-left: 0;
-}
-
-.preview-container li {
-    padding: 5px 0;
-}
+            
+            .user-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .user-item-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .menu-container {
+                right: 10px;
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -691,22 +1015,47 @@
             <div class="container navbar-container">
                 <a href="#" class="logo">English<span>Mastery</span></a>
                 <div class="user-info">
-                    <div class="user-details">
-                        <div class="user-name" id="dashboardUsername"></div>
-                        <div class="user-coins">
-                            <i class="fas fa-coins"></i>
-                            <span id="dashboardCoins">0</span>
-                        </div>
-                    </div>
-                    <button class="logout-btn" id="userLogoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </nav>
         
+        <!-- User Menu -->
+        <div class="menu-container" id="menuContainer">
+            <div class="menu-item" id="quizGameMenuItem">
+                <i class="fas fa-gamepad"></i>
+                <span>Quiz Game</span>
+            </div>
+            <div class="menu-item" id="notificationsMenuItem">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <span class="badge" id="notificationBadge" style="margin-left: auto; background-color: var(--danger); color: white; border-radius: 10px; padding: 2px 6px; font-size: 12px;">0</span>
+            </div>
+            <div class="menu-item" id="eventsMenuItem">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Upcoming Events</span>
+            </div>
+            <div class="menu-item" id="userLogoutMenuItem">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </div>
+        </div>
+        
         <div class="container main-content">
-            <div class="quiz-card">
+            <!-- User Dashboard Content -->
+            <div class="user-dashboard-content" id="userDashboardContent">
+                <h2 class="user-welcome">Welcome, <span id="welcomeUsername"></span>!</h2>
+                <div class="user-coins-display">
+                    <i class="fas fa-coins"></i>
+                    <span id="userCoinsDisplay">0</span> coins
+                </div>
+                <p>Click the menu button to start your daily quiz or check notifications</p>
+            </div>
+            
+            <!-- Quiz Section -->
+            <div class="quiz-card" id="quizCard">
                 <div class="quiz-header">
                     <h2 class="quiz-title">English Quiz</h2>
                     <div class="quiz-stats">
@@ -738,7 +1087,23 @@
                         <i class="fas fa-coins"></i>
                         <span id="earnedCoins">+0</span> coins earned!
                     </div>
-                    <button class="btn btn-primary restart-btn" id="restartQuizBtn">Restart Quiz</button>
+                    <button class="btn btn-primary restart-btn" id="restartQuizBtn">Back to Menu</button>
+                </div>
+            </div>
+            
+            <!-- Notifications Section -->
+            <div class="notifications-container" id="notificationsContainer">
+                <h3>Your Notifications</h3>
+                <div id="notificationsList">
+                    <!-- Notifications will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Events Section -->
+            <div class="events-container" id="eventsContainer">
+                <h3>Upcoming Events</h3>
+                <div id="eventsList">
+                    <!-- Events will be loaded here -->
                 </div>
             </div>
         </div>
@@ -751,7 +1116,10 @@
                 <a href="#" class="logo">English<span>Mastery</span> Admin</a>
                 <div class="user-info">
                     <div class="user-details">
-                        <div class="user-name">Admin Panel</div>
+                        <div class="user-name">
+                            <span id="adminDisplayName">Admin</span>
+                            <i class="fas fa-check-circle verified-badge"></i>
+                        </div>
                     </div>
                     <button class="logout-btn" id="adminLogoutBtn">
                         <i class="fas fa-sign-out-alt"></i> Logout
@@ -761,78 +1129,193 @@
         </nav>
         
         <div class="container main-content">
-            <div class="admin-header">
-                <h2 class="admin-title">Quiz Management</h2>
-                <div class="admin-actions">
-                    <button class="btn btn-primary" id="showQuestionFormBtn">
-                        <i class="fas fa-plus"></i> Add Question
-                    </button>
-                    <button class="btn btn-success" id="refreshQuestionsBtn">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-tab="quiz-management">Quiz Management</div>
+                <div class="admin-tab" data-tab="user-management">User Management</div>
+                <div class="admin-tab" data-tab="messaging">Messaging</div>
+                <div class="admin-tab" data-tab="events">Events</div>
+            </div>
+            
+            <!-- Quiz Management Tab -->
+            <div class="tab-content active" id="quiz-management">
+                <div class="admin-header">
+                    <h2 class="admin-title">Quiz Management</h2>
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" id="showQuestionFormBtn">
+                            <i class="fas fa-plus"></i> Add Question
+                        </button>
+                        <button class="btn btn-success" id="refreshQuestionsBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Google Form Integration -->
+                <div class="google-form-container">
+                    <h3 class="google-form-title">Google Form Integration</h3>
+                    <div class="google-form-input">
+                        <input type="text" id="googleFormUrl" class="form-control" placeholder="Paste Google Form URL here">
+                        <button class="btn btn-primary" id="loadGoogleFormBtn">Load Form</button>
+                    </div>
+                    <div class="google-form-iframe-container">
+                        <iframe id="googleFormIframe" class="google-form-iframe" src="" frameborder="0"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Question Form -->
+                <div class="question-form" id="questionForm" style="display: none;">
+                    <h3 class="form-title" id="formTitle">Add New Question</h3>
+                    <div class="form-group">
+                        <label for="questionInput">Question Text</label>
+                        <textarea id="questionInput" class="form-control" rows="3" placeholder="Enter the question text"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="option1">Option 1</label>
+                            <input type="text" id="option1" class="form-control" placeholder="Enter option 1">
+                        </div>
+                        <div class="form-group">
+                            <label for="option2">Option 2</label>
+                            <input type="text" id="option2" class="form-control" placeholder="Enter option 2">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="option3">Option 3</label>
+                            <input type="text" id="option3" class="form-control" placeholder="Enter option 3">
+                        </div>
+                        <div class="form-group">
+                            <label for="option4">Option 4</label>
+                            <input type="text" id="option4" class="form-control" placeholder="Enter option 4">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="correctAnswer">Correct Answer</label>
+                        <select id="correctAnswer" class="form-control">
+                            <option value="0">Option 1</option>
+                            <option value="1">Option 2</option>
+                            <option value="2">Option 3</option>
+                            <option value="3">Option 4</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-danger" id="cancelQuestionBtn">Cancel</button>
+                        <button class="btn btn-primary" id="saveQuestionBtn">Save Question</button>
+                    </div>
+                    <input type="hidden" id="editQuestionId" value="">
+                </div>
+                
+                <!-- Questions List -->
+                <div class="questions-list">
+                    <h3>Questions List</h3>
+                    <div id="questionsListContainer">
+                        <!-- Questions will be loaded here -->
+                    </div>
                 </div>
             </div>
             
-            <!-- Google Form Integration -->
-            <div class="google-form-container">
-                <h3 class="google-form-title">Google Form Integration</h3>
-                <div class="google-form-input">
-                    <input type="text" id="googleFormUrl" class="form-control" placeholder="Paste Google Form URL here">
-                    <button class="btn btn-primary" id="loadGoogleFormBtn">Load Form</button>
+            <!-- User Management Tab -->
+            <div class="tab-content" id="user-management">
+                <div class="admin-header">
+                    <h2 class="admin-title">User Management</h2>
+                    <div class="admin-actions">
+                        <button class="btn btn-success" id="refreshUsersBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
                 </div>
-                <div class="google-form-iframe-container">
-                    <iframe id="googleFormIframe" class="google-form-iframe" src="" frameborder="0"></iframe>
+                
+                <div class="users-list">
+                    <h3>Registered Users</h3>
+                    <div id="usersListContainer">
+                        <!-- Users will be loaded here -->
+                    </div>
                 </div>
             </div>
             
-            <!-- Question Form -->
-            <div class="question-form" id="questionForm" style="display: none;">
-                <h3 class="form-title" id="formTitle">Add New Question</h3>
-                <div class="form-group">
-                    <label for="questionInput">Question Text</label>
-                    <textarea id="questionInput" class="form-control" rows="3" placeholder="Enter the question text"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="option1">Option 1</label>
-                        <input type="text" id="option1" class="form-control" placeholder="Enter option 1">
-                    </div>
-                    <div class="form-group">
-                        <label for="option2">Option 2</label>
-                        <input type="text" id="option2" class="form-control" placeholder="Enter option 2">
+            <!-- Messaging Tab -->
+            <div class="tab-content" id="messaging">
+                <div class="admin-header">
+                    <h2 class="admin-title">Messaging Center</h2>
+                    <div class="admin-actions">
+                        <button class="btn btn-success" id="refreshMessagesBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
                     </div>
                 </div>
-                <div class="form-row">
+                
+                <!-- Message Form -->
+                <div class="message-form">
+                    <h3>Send Message</h3>
                     <div class="form-group">
-                        <label for="option3">Option 3</label>
-                        <input type="text" id="option3" class="form-control" placeholder="Enter option 3">
+                        <label for="messageRecipient">Recipient</label>
+                        <select id="messageRecipient" class="form-control">
+                            <!-- Users will be loaded here -->
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="option4">Option 4</label>
-                        <input type="text" id="option4" class="form-control" placeholder="Enter option 4">
+                        <label for="messageSubject">Subject</label>
+                        <input type="text" id="messageSubject" class="form-control" placeholder="Enter message subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="messageContent">Message</label>
+                        <textarea id="messageContent" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="sendMessageBtn">Send Message</button>
+                </div>
+                
+                <!-- Messages List -->
+                <div class="messages-list">
+                    <h3>Sent Messages</h3>
+                    <div id="messagesListContainer">
+                        <!-- Messages will be loaded here -->
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="correctAnswer">Correct Answer</label>
-                    <select id="correctAnswer" class="form-control">
-                        <option value="0">Option 1</option>
-                        <option value="1">Option 2</option>
-                        <option value="2">Option 3</option>
-                        <option value="3">Option 4</option>
-                    </select>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-danger" id="cancelQuestionBtn">Cancel</button>
-                    <button class="btn btn-primary" id="saveQuestionBtn">Save Question</button>
-                </div>
-                <input type="hidden" id="editQuestionId" value="">
             </div>
             
-            <!-- Questions List -->
-            <div class="questions-list">
-                <h3>Questions List</h3>
-                <div id="questionsListContainer">
-                    <!-- Questions will be loaded here -->
+            <!-- Events Tab -->
+            <div class="tab-content" id="events">
+                <div class="admin-header">
+                    <h2 class="admin-title">Events Management</h2>
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" id="addEventBtn">
+                            <i class="fas fa-plus"></i> Add Event
+                        </button>
+                        <button class="btn btn-success" id="refreshEventsBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Event Form -->
+                <div class="question-form" id="eventForm" style="display: none;">
+                    <h3 class="form-title" id="eventFormTitle">Add New Event</h3>
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title">
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Event Date</label>
+                        <input type="date" id="eventDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" class="form-control" rows="3" placeholder="Enter event description"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-danger" id="cancelEventBtn">Cancel</button>
+                        <button class="btn btn-primary" id="saveEventBtn">Save Event</button>
+                    </div>
+                    <input type="hidden" id="editEventId" value="">
+                </div>
+                
+                <!-- Events List -->
+                <div class="questions-list">
+                    <h3>Upcoming Events</h3>
+                    <div id="eventsAdminListContainer">
+                        <!-- Events will be loaded here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -859,9 +1342,21 @@
             const registerBtn = document.getElementById('registerBtn');
             
             // User dashboard elements
-            const dashboardUsername = document.getElementById('dashboardUsername');
-            const dashboardCoins = document.getElementById('dashboardCoins');
-            const userLogoutBtn = document.getElementById('userLogoutBtn');
+            const welcomeUsername = document.getElementById('welcomeUsername');
+            const userCoinsDisplay = document.getElementById('userCoinsDisplay');
+            const menuToggle = document.getElementById('menuToggle');
+            const menuContainer = document.getElementById('menuContainer');
+            const quizGameMenuItem = document.getElementById('quizGameMenuItem');
+            const notificationsMenuItem = document.getElementById('notificationsMenuItem');
+            const eventsMenuItem = document.getElementById('eventsMenuItem');
+            const userLogoutMenuItem = document.getElementById('userLogoutMenuItem');
+            const notificationBadge = document.getElementById('notificationBadge');
+            const userDashboardContent = document.getElementById('userDashboardContent');
+            const quizCard = document.getElementById('quizCard');
+            const notificationsContainer = document.getElementById('notificationsContainer');
+            const eventsContainer = document.getElementById('eventsContainer');
+            
+            // Quiz elements
             const quizScore = document.getElementById('quizScore');
             const quizQuestionCount = document.getElementById('quizQuestionCount');
             const questionText = document.getElementById('questionText');
@@ -874,8 +1369,15 @@
             const earnedCoins = document.getElementById('earnedCoins');
             const restartQuizBtn = document.getElementById('restartQuizBtn');
             
+            // Notifications elements
+            const notificationsList = document.getElementById('notificationsList');
+            
+            // Events elements
+            const eventsList = document.getElementById('eventsList');
+            
             // Admin dashboard elements
             const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+            const adminDisplayName = document.getElementById('adminDisplayName');
             const showQuestionFormBtn = document.getElementById('showQuestionFormBtn');
             const refreshQuestionsBtn = document.getElementById('refreshQuestionsBtn');
             const questionForm = document.getElementById('questionForm');
@@ -896,6 +1398,35 @@
             const loadGoogleFormBtn = document.getElementById('loadGoogleFormBtn');
             const googleFormIframe = document.getElementById('googleFormIframe');
             
+            // Admin tabs
+            const adminTabs = document.querySelectorAll('.admin-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            // User management elements
+            const refreshUsersBtn = document.getElementById('refreshUsersBtn');
+            const usersListContainer = document.getElementById('usersListContainer');
+            
+            // Messaging elements
+            const refreshMessagesBtn = document.getElementById('refreshMessagesBtn');
+            const messageRecipient = document.getElementById('messageRecipient');
+            const messageSubject = document.getElementById('messageSubject');
+            const messageContent = document.getElementById('messageContent');
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+            const messagesListContainer = document.getElementById('messagesListContainer');
+            
+            // Events management elements
+            const addEventBtn = document.getElementById('addEventBtn');
+            const refreshEventsBtn = document.getElementById('refreshEventsBtn');
+            const eventForm = document.getElementById('eventForm');
+            const eventFormTitle = document.getElementById('eventFormTitle');
+            const eventTitle = document.getElementById('eventTitle');
+            const eventDate = document.getElementById('eventDate');
+            const eventDescription = document.getElementById('eventDescription');
+            const cancelEventBtn = document.getElementById('cancelEventBtn');
+            const saveEventBtn = document.getElementById('saveEventBtn');
+            const editEventId = document.getElementById('editEventId');
+            const eventsAdminListContainer = document.getElementById('eventsAdminListContainer');
+            
             // Game variables
             let currentUser = null;
             let currentQuestionIndex = 0;
@@ -903,16 +1434,21 @@
             let coinsEarned = 0;
             let correctAnswersInRow = 0;
             let questions = [];
+            let lastQuizDate = null;
             
             // Admin credentials
             const ADMIN_CREDENTIALS = {
-                username: 'aakash',
-                password: 'aakash'
+                username: 'admin',
+                password: 'admin123',
+                displayName: 'Quiz Master',
+                isAdmin: true
             };
             
             // Initialize
             loadQuestions();
             loadUsers();
+            loadMessages();
+            loadEvents();
             
             // Event Listeners
             // Auth navigation
@@ -942,9 +1478,13 @@
             adminLoginBtn.addEventListener('click', loginAdmin);
             
             // User dashboard
-            userLogoutBtn.addEventListener('click', logoutUser);
+            menuToggle.addEventListener('click', toggleMenu);
+            quizGameMenuItem.addEventListener('click', showQuizGame);
+            notificationsMenuItem.addEventListener('click', showNotifications);
+            eventsMenuItem.addEventListener('click', showEvents);
+            userLogoutMenuItem.addEventListener('click', logoutUser);
             nextQuestionBtn.addEventListener('click', nextQuestion);
-            restartQuizBtn.addEventListener('click', restartQuiz);
+            restartQuizBtn.addEventListener('click', backToMenu);
             
             // Admin dashboard
             adminLogoutBtn.addEventListener('click', logoutAdmin);
@@ -953,6 +1493,43 @@
             cancelQuestionBtn.addEventListener('click', cancelQuestion);
             saveQuestionBtn.addEventListener('click', saveQuestion);
             loadGoogleFormBtn.addEventListener('click', loadGoogleForm);
+            
+            // Admin tabs
+            adminTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    adminTabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Load specific content when tab is clicked
+                    if (tabId === 'user-management') {
+                        renderUsersList();
+                    } else if (tabId === 'messaging') {
+                        renderMessageRecipients();
+                        renderMessagesList();
+                    } else if (tabId === 'events') {
+                        renderAdminEventsList();
+                    }
+                });
+            });
+            
+            // User management
+            refreshUsersBtn.addEventListener('click', renderUsersList);
+            
+            // Messaging
+            refreshMessagesBtn.addEventListener('click', renderMessagesList);
+            sendMessageBtn.addEventListener('click', sendMessage);
+            
+            // Events management
+            addEventBtn.addEventListener('click', showEventForm);
+            refreshEventsBtn.addEventListener('click', renderAdminEventsList);
+            cancelEventBtn.addEventListener('click', cancelEvent);
+            saveEventBtn.addEventListener('click', saveEvent);
             
             // Functions
             function loadQuestions() {
@@ -998,17 +1575,23 @@
             
             function loadUsers() {
                 if (!localStorage.getItem('englishQuizUsers')) {
-                    localStorage.setItem('englishQuizUsers', JSON.stringify([]));
+                    // Add admin user if none exists
+                    const users = [ADMIN_CREDENTIALS];
+                    localStorage.setItem('englishQuizUsers', JSON.stringify(users));
                 }
             }
             
+            function getUsers() {
+                return JSON.parse(localStorage.getItem('englishQuizUsers')) || [];
+            }
+            
             function getUser(username) {
-                const users = JSON.parse(localStorage.getItem('englishQuizUsers'));
+                const users = getUsers();
                 return users.find(user => user.username === username);
             }
             
             function saveUser(user) {
-                const users = JSON.parse(localStorage.getItem('englishQuizUsers'));
+                const users = getUsers();
                 const existingUserIndex = users.findIndex(u => u.username === user.username);
                 
                 if (existingUserIndex !== -1) {
@@ -1018,6 +1601,51 @@
                 }
                 
                 localStorage.setItem('englishQuizUsers', JSON.stringify(users));
+            }
+            
+            function loadMessages() {
+                if (!localStorage.getItem('englishQuizMessages')) {
+                    localStorage.setItem('englishQuizMessages', JSON.stringify([]));
+                }
+            }
+            
+            function getMessages() {
+                return JSON.parse(localStorage.getItem('englishQuizMessages')) || [];
+            }
+            
+            function saveMessage(message) {
+                const messages = getMessages();
+                messages.push(message);
+                localStorage.setItem('englishQuizMessages', JSON.stringify(messages));
+            }
+            
+            function loadEvents() {
+                if (!localStorage.getItem('englishQuizEvents')) {
+                    // Add some default events
+                    const defaultEvents = [
+                        {
+                            id: 1,
+                            title: "Weekly Quiz Challenge",
+                            date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                            description: "Participate in our weekly quiz challenge for bonus coins!"
+                        },
+                        {
+                            id: 2,
+                            title: "Grammar Workshop",
+                            date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                            description: "Join our grammar workshop to improve your English skills"
+                        }
+                    ];
+                    localStorage.setItem('englishQuizEvents', JSON.stringify(defaultEvents));
+                }
+            }
+            
+            function getEvents() {
+                return JSON.parse(localStorage.getItem('englishQuizEvents')) || [];
+            }
+            
+            function saveEvents(events) {
+                localStorage.setItem('englishQuizEvents', JSON.stringify(events));
             }
             
             function loginUser() {
@@ -1071,7 +1699,9 @@
                     email,
                     password,
                     coins: 0,
-                    highScore: 0
+                    highScore: 0,
+                    isAdmin: false,
+                    lastQuizDate: null
                 };
                 
                 saveUser(newUser);
@@ -1088,6 +1718,7 @@
                     return;
                 }
                 
+                currentUser = ADMIN_CREDENTIALS;
                 showAdminDashboard();
             }
             
@@ -1096,9 +1727,11 @@
                 userDashboard.style.display = 'none';
                 userLoginPage.style.display = 'flex';
                 resetQuiz();
+                hideMenu();
             }
             
             function logoutAdmin() {
+                currentUser = null;
                 adminDashboard.style.display = 'none';
                 adminLoginPage.style.display = 'flex';
             }
@@ -1109,10 +1742,14 @@
                 adminLoginPage.style.display = 'none';
                 userDashboard.style.display = 'block';
                 
-                dashboardUsername.textContent = currentUser.username;
-                dashboardCoins.textContent = currentUser.coins;
+                welcomeUsername.textContent = currentUser.username;
+                userCoinsDisplay.textContent = currentUser.coins;
                 
-                startQuiz();
+                // Update notification badge
+                updateNotificationBadge();
+                
+                // Show dashboard content by default
+                showDashboardContent();
             }
             
             function showAdminDashboard() {
@@ -1121,7 +1758,87 @@
                 adminLoginPage.style.display = 'none';
                 adminDashboard.style.display = 'block';
                 
+                adminDisplayName.textContent = currentUser.displayName || 'Admin';
+                
                 renderQuestionsList();
+                renderAdminEventsList();
+            }
+            
+            function toggleMenu() {
+                if (menuContainer.style.display === 'block') {
+                    hideMenu();
+                } else {
+                    showMenu();
+                }
+            }
+            
+            function showMenu() {
+                menuContainer.style.display = 'block';
+                // Close menu when clicking outside
+                setTimeout(() => {
+                    document.addEventListener('click', closeMenuOnClickOutside);
+                }, 10);
+            }
+            
+            function hideMenu() {
+                menuContainer.style.display = 'none';
+                document.removeEventListener('click', closeMenuOnClickOutside);
+            }
+            
+            function closeMenuOnClickOutside(e) {
+                if (!menuContainer.contains(e.target)) {
+                    hideMenu();
+                }
+            }
+            
+            function showDashboardContent() {
+                userDashboardContent.style.display = 'flex';
+                quizCard.style.display = 'none';
+                notificationsContainer.style.display = 'none';
+                eventsContainer.style.display = 'none';
+            }
+            
+            function showQuizGame() {
+                hideMenu();
+                
+                // Check if user has already played today
+                const today = new Date().toDateString();
+                if (currentUser.lastQuizDate === today) {
+                    alert('You have already completed your daily quiz. Come back tomorrow!');
+                    return;
+                }
+                
+                userDashboardContent.style.display = 'none';
+                notificationsContainer.style.display = 'none';
+                eventsContainer.style.display = 'none';
+                quizCard.style.display = 'block';
+                
+                startQuiz();
+            }
+            
+            function showNotifications() {
+                hideMenu();
+                userDashboardContent.style.display = 'none';
+                quizCard.style.display = 'none';
+                eventsContainer.style.display = 'none';
+                notificationsContainer.style.display = 'block';
+                
+                renderUserNotifications();
+            }
+            
+            function showEvents() {
+                hideMenu();
+                userDashboardContent.style.display = 'none';
+                quizCard.style.display = 'none';
+                notificationsContainer.style.display = 'none';
+                eventsContainer.style.display = 'block';
+                
+                renderUserEvents();
+            }
+            
+            function backToMenu() {
+                resultContainer.style.display = 'none';
+                showDashboardContent();
             }
             
             function startQuiz() {
@@ -1187,7 +1904,7 @@
                     }
                     
                     feedback.textContent = 'Correct! Well done!';
-                                      feedback.className = 'feedback correct';
+                    feedback.className = 'feedback correct';
                 } else {
                     feedback.textContent = `Incorrect. The correct answer is: ${question.options[question.correctAnswer]}`;
                     feedback.className = 'feedback incorrect';
@@ -1230,14 +1947,14 @@
                 // Update user's coins and high score
                 currentUser.coins += coinsEarned;
                 currentUser.highScore = Math.max(currentUser.highScore, score);
+                
+                // Mark quiz as completed for today
+                currentUser.lastQuizDate = new Date().toDateString();
                 saveUser(currentUser);
                 
                 // Update dashboard display
-                dashboardCoins.textContent = currentUser.coins;
-            }
-            
-            function restartQuiz() {
-                startQuiz();
+                userCoinsDisplay.textContent = currentUser.coins;
+                updateNotificationBadge();
             }
             
             function resetQuiz() {
@@ -1245,6 +1962,128 @@
                 score = 0;
                 coinsEarned = 0;
                 correctAnswersInRow = 0;
+            }
+            
+            function updateNotificationBadge() {
+                if (!currentUser) return;
+                
+                const messages = getMessages();
+                const userMessages = messages.filter(msg => 
+                    msg.recipient === currentUser.username && !msg.read
+                );
+                
+                notificationBadge.textContent = userMessages.length;
+                notificationBadge.style.display = userMessages.length > 0 ? 'block' : 'none';
+            }
+            
+            function renderUserNotifications() {
+                if (!currentUser) return;
+                
+                const messages = getMessages();
+                notificationsList.innerHTML = '';
+                
+                // Filter messages for current user
+                const userMessages = messages.filter(msg => 
+                    msg.recipient === currentUser.username
+                );
+                
+                if (userMessages.length === 0) {
+                    notificationsList.innerHTML = '<p>No notifications yet.</p>';
+                    return;
+                }
+                
+                // Mark messages as read
+                userMessages.forEach(message => {
+                    message.read = true;
+                });
+                saveMessages(messages);
+                updateNotificationBadge();
+                
+                userMessages.forEach(message => {
+                    const messageItem = document.createElement('div');
+                    messageItem.className = 'notification-item';
+                    
+                    const messageHeader = document.createElement('div');
+                    messageHeader.className = 'notification-header';
+                    
+                    const senderSpan = document.createElement('div');
+                    senderSpan.className = 'notification-title';
+                    
+                    const senderName = document.createElement('span');
+                    senderName.textContent = message.sender;
+                    
+                    senderSpan.appendChild(senderName);
+                    
+                    // Add verified badge if sender is admin
+                    if (message.sender === ADMIN_CREDENTIALS.username) {
+                        const verifiedBadge = document.createElement('i');
+                        verifiedBadge.className = 'fas fa-check-circle verified-badge';
+                        verifiedBadge.style.marginLeft = '5px';
+                        senderSpan.appendChild(verifiedBadge);
+                    }
+                    
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'notification-date';
+                    dateSpan.textContent = new Date(message.timestamp).toLocaleString();
+                    
+                    messageHeader.appendChild(senderSpan);
+                    messageHeader.appendChild(dateSpan);
+                    
+                    const subjectDiv = document.createElement('div');
+                    subjectDiv.className = 'notification-content';
+                    subjectDiv.innerHTML = `<strong>Subject:</strong> ${message.subject}`;
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'notification-content';
+                    contentDiv.textContent = message.content;
+                    
+                    messageItem.appendChild(messageHeader);
+                    messageItem.appendChild(subjectDiv);
+                    messageItem.appendChild(contentDiv);
+                    
+                    notificationsList.appendChild(messageItem);
+                });
+            }
+            
+            function renderUserEvents() {
+                const events = getEvents();
+                eventsList.innerHTML = '';
+                
+                if (events.length === 0) {
+                    eventsList.innerHTML = '<p>No upcoming events.</p>';
+                    return;
+                }
+                
+                // Sort events by date
+                events.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                events.forEach(event => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    
+                    const eventHeader = document.createElement('div');
+                    eventHeader.className = 'event-header';
+                    
+                    const titleSpan = document.createElement('div');
+                    titleSpan.className = 'event-title';
+                    titleSpan.textContent = event.title;
+                    
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'event-date';
+                    dateSpan.textContent = new Date(event.date).toLocaleDateString();
+                    
+                    eventHeader.appendChild(titleSpan);
+                    eventHeader.appendChild(dateSpan);
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'event-content';
+                    contentDiv.textContent = event.description;
+                    
+                    eventItem.appendChild(eventHeader);
+                    eventItem.appendChild(contentDiv);
+                    
+                    eventsList.appendChild(eventItem);
+                });
             }
             
             // Admin functions
@@ -1424,262 +2263,367 @@
                 
                 googleFormIframe.src = embedUrl;
             }
-            // Add this function to your existing JavaScript code
-async function convertGoogleFormToQuiz() {
-    const formUrl = googleFormUrl.value.trim();
-    if (!formUrl) {
-        alert('Please enter a Google Form URL');
-        return;
-    }
-
-   // Update your Google Form integration code with this:
-
-// 1. First, add this proxy function to bypass CORS (for development)
-async function fetchWithCorsProxy(url) {
-    // For development/testing, you can use a CORS proxy
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Public proxy
-    try {
-        const response = await fetch(proxyUrl + url);
-        return await response.text();
-    } catch (error) {
-        console.error('Proxy fetch error:', error);
-        throw new Error('Failed to fetch form using proxy');
-    }
-}
-
-// 2. Replace your loadGoogleFormBtn event listener with this:
-loadGoogleFormBtn.addEventListener('click', async function() {
-    const formUrl = googleFormUrl.value.trim();
-    if (!formUrl) {
-        alert('Please enter a Google Form URL');
-        return;
-    }
-
-    try {
-        // Show loading state
-        loadGoogleFormBtn.disabled = true;
-        loadGoogleFormBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-        // Extract form ID from URL
-        const formId = extractFormId(formUrl);
-        if (!formId) {
-            throw new Error('Invalid Google Form URL format');
-        }
-
-        // Construct the form view URL
-        const formViewUrl = `https://docs.google.com/forms/d/e/${formId}/viewform`;
-        
-        // Fetch the form HTML using proxy
-        const html = await fetchWithCorsProxy(formViewUrl);
-        
-        // Parse the HTML to extract questions
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        // Extract all questions
-        const questionDivs = doc.querySelectorAll('[role="listitem"]');
-        const quizQuestions = [];
-        
-        questionDivs.forEach(div => {
-            const questionText = div.querySelector('.M7eMe')?.textContent.trim() || 'Untitled question';
-            const options = [];
             
-            // Get multiple choice options
-            const optionDivs = div.querySelectorAll('.SG0AAe');
-            optionDivs.forEach(opt => {
-                const optionText = opt.querySelector('.aDTYNe.snByac')?.textContent.trim();
-                if (optionText) options.push(optionText);
-            });
-            
-            // Only add if it's a multiple choice question with options
-            if (options.length > 0) {
-                quizQuestions.push({
-                    question: questionText,
-                    options: options,
-                    correctAnswer: 0 // Default to first option
+            // User management functions
+            function renderUsersList() {
+                const users = getUsers().filter(user => !user.isAdmin); // Exclude admin from list
+                usersListContainer.innerHTML = '';
+                
+                if (users.length === 0) {
+                    usersListContainer.innerHTML = '<p>No users found.</p>';
+                    return;
+                }
+                
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    
+                    const userInfo = document.createElement('div');
+                    userInfo.className = 'user-item-info';
+                    
+                    const userName = document.createElement('div');
+                    userName.className = 'user-item-name';
+                    userName.textContent = user.username;
+                    
+                    const userEmail = document.createElement('div');
+                    userEmail.className = 'user-item-email';
+                    userEmail.textContent = user.email;
+                    
+                    userInfo.appendChild(userName);
+                    userInfo.appendChild(userEmail);
+                    
+                    const userStats = document.createElement('div');
+                    userStats.className = 'user-item-stats';
+                    
+                    const coinsStat = document.createElement('div');
+                    coinsStat.className = 'user-stat';
+                    
+                    const coinsNumber = document.createElement('div');
+                    coinsNumber.className = 'stat-number';
+                    coinsNumber.innerHTML = `<i class="fas fa-coins" style="color: var(--warning);"></i> ${user.coins}`;
+                    
+                    const coinsLabel = document.createElement('div');
+                    coinsLabel.className = 'stat-label';
+                    coinsLabel.textContent = 'Coins';
+                    
+                    coinsStat.appendChild(coinsNumber);
+                    coinsStat.appendChild(coinsLabel);
+                    
+                    const scoreStat = document.createElement('div');
+                    scoreStat.className = 'user-stat';
+                    
+                    const scoreNumber = document.createElement('div');
+                    scoreNumber.className = 'stat-number';
+                    scoreNumber.textContent = user.highScore || '0';
+                    
+                    const scoreLabel = document.createElement('div');
+                    scoreLabel.className = 'stat-label';
+                    scoreLabel.textContent = 'High Score';
+                    
+                    scoreStat.appendChild(scoreNumber);
+                    scoreStat.appendChild(scoreLabel);
+                    
+                    userStats.appendChild(coinsStat);
+                    userStats.appendChild(scoreStat);
+                    
+                    const userActions = document.createElement('div');
+                    userActions.className = 'user-item-actions';
+                    
+                    const messageBtn = document.createElement('button');
+                    messageBtn.className = 'btn btn-info btn-sm';
+                    messageBtn.innerHTML = '<i class="fas fa-envelope"></i> Message';
+                    messageBtn.addEventListener('click', () => {
+                        // Switch to messaging tab and pre-select this user
+                        document.querySelector('.admin-tab[data-tab="messaging"]').click();
+                        messageRecipient.value = user.username;
+                        messageSubject.focus();
+                    });
+                    
+                    userActions.appendChild(messageBtn);
+                    
+                    userItem.appendChild(userInfo);
+                    userItem.appendChild(userStats);
+                    userItem.appendChild(userActions);
+                    
+                    usersListContainer.appendChild(userItem);
                 });
             }
-        });
-        
-        if (quizQuestions.length === 0) {
-            throw new Error('No multiple choice questions found in this form');
-        }
-        
-        // Preview the converted questions
-        previewConvertedQuestions(quizQuestions);
-        
-    } catch (error) {
-        console.error('Conversion error:', error);
-        alert('Error: ' + error.message + '\n\nNote: For production use, you need a backend service to handle this conversion.');
-    } finally {
-        // Reset button state
-        loadGoogleFormBtn.disabled = false;
-        loadGoogleFormBtn.innerHTML = '<i class="fas fa-download"></i> Convert Form';
-    }
-});
-
-// 3. Keep your existing helper functions:
-function extractFormId(url) {
-    const patterns = [
-        /\/d\/e\/([^\/]+)/,
-        /\/d\/([^\/]+)/,
-        /\/forms\/d\/e\/([^\/]+)/
-    ];
-    
-    for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) return match[1];
-    }
-    return null;
-}
-
-function previewConvertedQuestions(quizQuestions) {
-    // ... keep your existing preview function ...
-}
-
-function saveConvertedQuestions(newQuestions) {
-    // ... keep your existing save function ...
-}
-}
-
-// Helper function to extract form ID from URL
-function extractFormId(url) {
-    const matches = url.match(/[-\w]{25,}/);
-    return matches ? matches[0] : null;
-}
-
-// Simulated Google Forms API fetch
-async function fetchGoogleFormData(formId) {
-    // In a real implementation, you would use the Google Forms API
-    // For this demo, we'll simulate with a timeout
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Mock response structure similar to Google Forms API
-    return {
-        title: "English Grammar Quiz",
-        items: [
-            {
-                questionItem: {
-                    question: {
-                        textQuestion: {
-                            paragraph: false
-                        }
-                    },
-                    question: "What is the past tense of 'go'?",
-                    choices: ["gone", "went", "goed", "going"],
-                    correctAnswer: { value: "went" }
+            
+            // Messaging functions
+            function renderMessageRecipients() {
+                const users = getUsers().filter(user => !user.isAdmin); // Exclude admin from recipients
+                messageRecipient.innerHTML = '';
+                
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select a user';
+                messageRecipient.appendChild(defaultOption);
+                
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.username;
+                    option.textContent = user.username;
+                    messageRecipient.appendChild(option);
+                });
+            }
+            
+            function renderMessagesList() {
+                const messages = getMessages();
+                messagesListContainer.innerHTML = '';
+                
+                if (messages.length === 0) {
+                    messagesListContainer.innerHTML = '<p>No messages sent yet.</p>';
+                    return;
                 }
-            },
-            {
-                questionItem: {
-                    question: {
-                        textQuestion: {
-                            paragraph: false
-                        }
-                    },
-                    question: "Which of these is a synonym for 'happy'?",
-                    choices: ["joyful", "sad", "angry", "tired"],
-                    correctAnswer: { value: "joyful" }
+                
+                // Filter messages sent by admin
+                const adminMessages = messages.filter(msg => msg.sender === ADMIN_CREDENTIALS.username);
+                
+                if (adminMessages.length === 0) {
+                    messagesListContainer.innerHTML = '<p>No messages sent yet.</p>';
+                    return;
+                }
+                
+                adminMessages.forEach((message, index) => {
+                    const messageItem = document.createElement('div');
+                    messageItem.className = 'message-item';
+                    
+                    const messageHeader = document.createElement('div');
+                    messageHeader.className = 'message-header';
+                    
+                    const recipientSpan = document.createElement('div');
+                    recipientSpan.className = 'message-sender';
+                    recipientSpan.textContent = `To: ${message.recipient}`;
+                    
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'message-date';
+                    dateSpan.textContent = new Date(message.timestamp).toLocaleString();
+                    
+                    messageHeader.appendChild(recipientSpan);
+                    messageHeader.appendChild(dateSpan);
+                    
+                    const subjectDiv = document.createElement('div');
+                    subjectDiv.className = 'message-content';
+                    subjectDiv.innerHTML = `<strong>Subject:</strong> ${message.subject}`;
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'message-content';
+                    contentDiv.textContent = message.content;
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'btn btn-danger btn-sm';
+                    deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+                    deleteBtn.style.marginTop = '10px';
+                    deleteBtn.addEventListener('click', () => deleteMessage(index));
+                    
+                    messageItem.appendChild(messageHeader);
+                    messageItem.appendChild(subjectDiv);
+                    messageItem.appendChild(contentDiv);
+                    messageItem.appendChild(deleteBtn);
+                    
+                    messagesListContainer.appendChild(messageItem);
+                });
+            }
+            
+            function deleteMessage(index) {
+                if (confirm('Are you sure you want to delete this message?')) {
+                    const messages = getMessages();
+                    messages.splice(index, 1);
+                    saveMessages(messages);
+                    renderMessagesList();
                 }
             }
-        ]
-    };
-}
-
-// Convert Google Form structure to our quiz format
-function convertFormToQuestions(formData) {
-    return formData.items.map(item => {
-        const question = item.questionItem.question;
-        const options = item.questionItem.choices || [];
-        const correctAnswer = options.indexOf(item.questionItem.correctAnswer.value);
-        
-        return {
-            question,
-            options,
-            correctAnswer: correctAnswer !== -1 ? correctAnswer : 0
-        };
-    });
-}
-
-// Preview the converted questions
-function previewConvertedQuestions(quizQuestions) {
-    const previewContainer = document.createElement('div');
-    previewContainer.className = 'preview-container';
-    previewContainer.style.marginTop = '20px';
-    previewContainer.style.padding = '20px';
-    previewContainer.style.backgroundColor = '#f8f9fa';
-    previewContainer.style.borderRadius = '8px';
-    
-    const previewTitle = document.createElement('h4');
-    previewTitle.textContent = `Preview (${quizQuestions.length} questions converted)`;
-    previewContainer.appendChild(previewTitle);
-    
-    quizQuestions.forEach((q, i) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.style.marginBottom = '15px';
-        
-        const questionText = document.createElement('p');
-        questionText.style.fontWeight = '500';
-        questionText.textContent = `${i + 1}. ${q.question}`;
-        questionDiv.appendChild(questionText);
-        
-        const optionsList = document.createElement('ul');
-        optionsList.style.marginLeft = '20px';
-        optionsList.style.listStyleType = 'none';
-        
-        q.options.forEach((opt, j) => {
-            const optionItem = document.createElement('li');
-            optionItem.textContent = `${String.fromCharCode(97 + j)}) ${opt}`;
-            if (j === q.correctAnswer) {
-                optionItem.style.color = '#28a745';
-                optionItem.style.fontWeight = '600';
+            
+            function saveMessages(messages) {
+                localStorage.setItem('englishQuizMessages', JSON.stringify(messages));
             }
-            optionsList.appendChild(optionItem);
-        });
-        
-        questionDiv.appendChild(optionsList);
-        previewContainer.appendChild(questionDiv);
-    });
-    
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.gap = '10px';
-    buttonContainer.style.marginTop = '15px';
-    
-    const confirmButton = document.createElement('button');
-    confirmButton.className = 'btn btn-success';
-    confirmButton.innerHTML = '<i class="fas fa-save"></i> Save Questions';
-    confirmButton.onclick = () => {
-        saveConvertedQuestions(quizQuestions);
-        previewContainer.remove();
-    };
-    
-    const cancelButton = document.createElement('button');
-    cancelButton.className = 'btn btn-danger';
-    cancelButton.innerHTML = '<i class="fas fa-times"></i> Cancel';
-    cancelButton.onclick = () => previewContainer.remove();
-    
-    buttonContainer.appendChild(confirmButton);
-    buttonContainer.appendChild(cancelButton);
-    previewContainer.appendChild(buttonContainer);
-    
-    // Remove any existing preview
-    const existingPreview = document.querySelector('.preview-container');
-    if (existingPreview) existingPreview.remove();
-    
-    googleFormIframe.parentNode.insertBefore(previewContainer, googleFormIframe.nextSibling);
-}
-
-// Save the converted questions to the quiz
-function saveConvertedQuestions(newQuestions) {
-    questions = [...questions, ...newQuestions];
-    saveQuestions();
-    renderQuestionsList();
-    alert(`Successfully added ${newQuestions.length} new questions!`);
-}
-
-// Update the event listener for the load button
-loadGoogleFormBtn.addEventListener('click', convertGoogleFormToQuiz);
+            
+            function sendMessage() {
+                const recipient = messageRecipient.value;
+                const subject = messageSubject.value.trim();
+                const content = messageContent.value.trim();
+                
+                if (!recipient) {
+                    alert('Please select a recipient');
+                    return;
+                }
+                
+                if (!subject) {
+                    alert('Please enter a subject');
+                    return;
+                }
+                
+                if (!content) {
+                    alert('Please enter message content');
+                    return;
+                }
+                
+                const newMessage = {
+                    sender: ADMIN_CREDENTIALS.username,
+                    recipient,
+                    subject,
+                    content,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                };
+                
+                const messages = getMessages();
+                messages.push(newMessage);
+                saveMessages(messages);
+                
+                // Clear form
+                messageSubject.value = '';
+                messageContent.value = '';
+                
+                // Refresh messages list
+                renderMessagesList();
+                
+                alert('Message sent successfully!');
+            }
+            
+            // Events management functions
+            function showEventForm() {
+                eventForm.style.display = 'block';
+                eventFormTitle.textContent = 'Add New Event';
+                clearEventForm();
+            }
+            
+            function clearEventForm() {
+                eventTitle.value = '';
+                eventDate.value = '';
+                eventDescription.value = '';
+                editEventId.value = '';
+            }
+            
+            function cancelEvent() {
+                eventForm.style.display = 'none';
+                clearEventForm();
+            }
+            
+            function saveEvent() {
+                const title = eventTitle.value.trim();
+                const date = eventDate.value;
+                const description = eventDescription.value.trim();
+                const eventId = editEventId.value;
+                
+                // Validate inputs
+                if (!title) {
+                    alert('Please enter event title');
+                    return;
+                }
+                
+                if (!date) {
+                    alert('Please select event date');
+                    return;
+                }
+                
+                if (!description) {
+                    alert('Please enter event description');
+                    return;
+                }
+                
+                const events = getEvents();
+                
+                const newEvent = {
+                    id: eventId || Date.now(),
+                    title,
+                    date,
+                    description
+                };
+                
+                if (eventId) {
+                    // Update existing event
+                    const index = events.findIndex(e => e.id == eventId);
+                    if (index !== -1) {
+                        events[index] = newEvent;
+                    }
+                } else {
+                    // Add new event
+                    events.push(newEvent);
+                }
+                
+                saveEvents(events);
+                renderAdminEventsList();
+                cancelEvent();
+            }
+            
+            function renderAdminEventsList() {
+                const events = getEvents();
+                eventsAdminListContainer.innerHTML = '';
+                
+                if (events.length === 0) {
+                    eventsAdminListContainer.innerHTML = '<p>No events found. Add some events to get started.</p>';
+                    return;
+                }
+                
+                // Sort events by date
+                events.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                events.forEach((event, index) => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'question-item';
+                    
+                    const eventHeader = document.createElement('div');
+                    eventHeader.className = 'question-item-header';
+                    
+                    const eventTitle = document.createElement('span');
+                    eventTitle.textContent = event.title;
+                    
+                    const eventDate = document.createElement('span');
+                    eventDate.textContent = new Date(event.date).toLocaleDateString();
+                    eventDate.style.color = 'var(--gray)';
+                    
+                    const eventActions = document.createElement('div');
+                    eventActions.className = 'question-item-actions';
+                    
+                    const editBtn = document.createElement('button');
+                    editBtn.className = 'btn btn-warning btn-sm';
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+                    editBtn.addEventListener('click', () => editEvent(event));
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'btn btn-danger btn-sm';
+                    deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+                    deleteBtn.addEventListener('click', () => deleteEvent(event.id));
+                    
+                    eventActions.appendChild(editBtn);
+                    eventActions.appendChild(deleteBtn);
+                    eventHeader.appendChild(eventTitle);
+                    eventHeader.appendChild(eventDate);
+                    eventHeader.appendChild(eventActions);
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'question-item-text';
+                    contentDiv.textContent = event.description;
+                    
+                    eventItem.appendChild(eventHeader);
+                    eventItem.appendChild(contentDiv);
+                    
+                    eventsAdminListContainer.appendChild(eventItem);
+                });
+            }
+            
+            function editEvent(event) {
+                eventForm.style.display = 'block';
+                eventFormTitle.textContent = 'Edit Event';
+                
+                eventTitle.value = event.title;
+                eventDate.value = event.date;
+                eventDescription.value = event.description;
+                editEventId.value = event.id;
+            }
+            
+            function deleteEvent(eventId) {
+                if (confirm('Are you sure you want to delete this event?')) {
+                    const events = getEvents();
+                    const index = events.findIndex(e => e.id == eventId);
+                    if (index !== -1) {
+                        events.splice(index, 1);
+                        saveEvents(events);
+                        renderAdminEventsList();
+                    }
+                }
+            }
         });
     </script>
 </body>
