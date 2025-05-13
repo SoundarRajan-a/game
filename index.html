@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Mastery Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>GMified - English Learning Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary: #3f37c9;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --info: #4895ef;
-            --light: #f8f9fa;
-            --dark: #212529;
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --primary-light: #a29bfe;
+            --secondary: #00cec9;
+            --success: #00b894;
+            --danger: #d63031;
+            --warning: #fdcb6e;
+            --info: #0984e3;
+            --light: #f5f6fa;
+            --dark: #2d3436;
             --white: #ffffff;
-            --gray: #6c757d;
-            --gray-light: #e9ecef;
+            --gray: #636e72;
+            --gray-light: #dfe6e9;
             --gold: #FFD700;
+            --platinum: #e5e4e2;
+            --diamond: #b9f2ff;
+            
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         * {
@@ -30,16 +40,30 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
         
         /* Auth Pages */
@@ -48,29 +72,58 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 20px;
         }
         
         .auth-card {
             background-color: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
             width: 100%;
             max-width: 450px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .auth-header {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: var(--white);
             padding: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
         }
         
         .auth-header h2 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .auth-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
         }
         
         .auth-body {
@@ -79,6 +132,7 @@
         
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
         
         .form-group label {
@@ -86,96 +140,148 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--dark);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
+            padding: 15px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: var(--transition);
+            background-color: var(--light);
+            font-family: 'Montserrat', sans-serif;
         }
         
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            background-color: var(--white);
         }
         
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .btn:hover::after {
+            opacity: 1;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .btn i {
+            margin-right: 8px;
         }
         
         .btn-block {
-            display: block;
+            display: flex;
             width: 100%;
         }
         
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: var(--white);
         }
         
         .btn-primary:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
         }
         
         .btn-secondary {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #00a8b5 100%);
             color: var(--white);
         }
         
         .btn-secondary:hover {
-            background-color: #3a0ca3;
+            background: linear-gradient(135deg, #00a8b5 0%, var(--secondary) 100%);
+            box-shadow: 0 5px 15px rgba(0, 206, 201, 0.4);
         }
         
         .btn-danger {
-            background-color: var(--danger);
+            background: linear-gradient(135deg, var(--danger) 0%, #b71540 100%);
             color: var(--white);
         }
         
         .btn-danger:hover {
-            background-color: #d3166e;
+            background: linear-gradient(135deg, #b71540 0%, var(--danger) 100%);
+            box-shadow: 0 5px 15px rgba(214, 48, 49, 0.4);
         }
         
         .btn-success {
-            background-color: var(--success);
+            background: linear-gradient(135deg, var(--success) 0%, #00997b 100%);
             color: var(--white);
         }
         
         .btn-success:hover {
-            background-color: #3ab8db;
+            background: linear-gradient(135deg, #00997b 0%, var(--success) 100%);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
         }
         
         .btn-warning {
-            background-color: var(--warning);
-            color: var(--white);
+            background: linear-gradient(135deg, var(--warning) 0%, #e1b12c 100%);
+            color: var(--dark);
         }
         
         .btn-warning:hover {
-            background-color: #e68a19;
+            background: linear-gradient(135deg, #e1b12c 0%, var(--warning) 100%);
+            box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
         }
         
         .btn-info {
-            background-color: var(--info);
+            background: linear-gradient(135deg, var(--info) 0%, #0767b1 100%);
             color: var(--white);
         }
         
         .btn-info:hover {
-            background-color: #3a7bd5;
+            background: linear-gradient(135deg, #0767b1 0%, var(--info) 100%);
+            box-shadow: 0 5px 15px rgba(9, 132, 227, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
         }
         
         .btn-sm {
-            padding: 8px 16px;
+            padding: 10px 18px;
             font-size: 14px;
         }
         
@@ -195,54 +301,177 @@
             padding: 20px;
             text-align: center;
             border-top: 1px solid var(--gray-light);
+            font-size: 14px;
         }
         
         .auth-footer a {
             color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
         }
         
         .auth-footer a:hover {
+            color: var(--primary-dark);
             text-decoration: underline;
         }
         
-        /* Game Dashboard */
+        /* Dashboard Layout */
         .dashboard {
             display: none;
             min-height: 100vh;
             background-color: var(--light);
         }
         
-        .navbar {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-            position: sticky;
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--white);
+            box-shadow: var(--shadow-md);
             z-index: 100;
+            transition: var(--transition);
+            overflow-y: auto;
+            padding-bottom: 20px;
         }
         
-        .navbar-container {
+        .sidebar-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            height: var(--header-height);
+            border-bottom: 1px solid var(--gray-light);
+            padding: 0 20px;
         }
         
         .logo {
+            display: flex;
+            align-items: center;
             font-size: 24px;
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            font-family: 'Poppins', sans-serif;
         }
         
         .logo span {
             color: var(--secondary);
         }
         
-        .user-info {
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-title {
+            padding: 10px 25px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .menu-item {
             display: flex;
             align-items: center;
-            gap: 15px;
+            padding: 12px 25px;
+            margin: 5px 0;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 0 30px 30px 0;
+            transition: var(--transition);
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .menu-item:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+        
+        .menu-item.active {
+            color: var(--primary);
+            background-color: rgba(108, 92, 231, 0.1);
+            font-weight: 600;
+        }
+        
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 10px;
+            padding: 3px 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+            min-height: calc(100vh - var(--header-height));
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            transition: var(--transition);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
         }
         
         .user-avatar {
@@ -255,110 +484,222 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-        }
-        
-        .user-details {
-            text-align: right;
+            margin-right: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
         
         .user-name {
             font-weight: 600;
-            margin-bottom: 2px;
+            margin-right: 5px;
             display: flex;
             align-items: center;
-            gap: 5px;
         }
         
         .verified-badge {
             color: var(--gold);
             font-size: 14px;
+            margin-left: 5px;
         }
         
-        .user-coins {
-            font-size: 12px;
-            color: var(--gray);
+        .user-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            width: 200px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .user-menu.show {
+            display: block;
+        }
+        
+        .user-menu-item {
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 5px;
-        }
-        
-        .user-coins i {
-            color: var(--warning);
-        }
-        
-        .logout-btn {
-            background: none;
-            border: none;
-            color: var(--danger);
-            cursor: pointer;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
             font-size: 14px;
         }
         
-        .main-content {
-            padding: 30px 0;
+        .user-menu-item:hover {
+            background-color: var(--light);
+            color: var(--primary);
         }
         
-        /* User Menu */
-        .menu-container {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 250px;
-            z-index: 99;
-            display: none;
-        }
-        
-        .menu-item {
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .menu-item:hover {
-            background-color: var(--gray-light);
-        }
-        
-        .menu-item i {
-            width: 20px;
+        .user-menu-item i {
+            margin-right: 10px;
+            width: 18px;
             text-align: center;
         }
         
-        .menu-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
+        .user-menu-divider {
+            height: 1px;
+            background-color: var(--gray-light);
+            margin: 5px 0;
+        }
+        
+        /* Coin Display */
+        .coin-display {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--warning) 0%, #e1b12c 100%);
             color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 30px;
+            margin-right: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .coin-display i {
+            margin-right: 8px;
+            color: var(--dark);
+        }
+        
+        .coin-amount {
+            font-weight: 600;
+        }
+        
+        /* Content Area */
+        .content-area {
+            padding: 30px;
+            margin-top: var(--header-height);
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title i {
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - var(--header-height) - 60px);
+            text-align: center;
+            padding: 40px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .welcome-message {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .welcome-message span {
+            color: var(--primary);
+        }
+        
+        .dashboard-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            min-width: 200px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
         }
         
         /* Quiz Card */
         .quiz-card {
             background-color: var(--white);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
             padding: 30px;
             margin-bottom: 30px;
             display: none;
+            border: 1px solid var(--gray-light);
         }
         
         .quiz-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
         }
         
         .quiz-title {
-            font-size: 24px;
+            font-size: 22px;
             color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-title i {
+            margin-right: 10px;
         }
         
         .quiz-stats {
@@ -368,21 +709,24 @@
         
         .stat-box {
             background-color: var(--light);
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 10px;
             text-align: center;
-            min-width: 80px;
+            min-width: 100px;
+            border: 1px solid var(--gray-light);
         }
         
         .stat-label {
             font-size: 12px;
             color: var(--gray);
             margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .stat-value {
-            font-weight: 600;
-            font-size: 18px;
+            font-weight: 700;
+            font-size: 20px;
         }
         
         .question-container {
@@ -391,62 +735,93 @@
         
         .question-text {
             font-size: 18px;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-weight: 500;
         }
         
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
         
         .option-btn {
-            padding: 15px;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
+            padding: 18px 25px;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
             background-color: var(--white);
             text-align: left;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         
         .option-btn:hover {
             background-color: var(--light);
-            border-color: var(--primary);
+            border-color: var(--primary-light);
         }
         
         .option-btn.correct {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
+            background-color: rgba(0, 184, 148, 0.1);
+            border-color: rgba(0, 184, 148, 0.3);
+            color: var(--success);
         }
         
         .option-btn.incorrect {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+            background-color: rgba(214, 48, 49, 0.1);
+            border-color: rgba(214, 48, 49, 0.3);
+            color: var(--danger);
+        }
+        
+        .option-btn .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            margin-right: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            flex-shrink: 0;
+        }
+        
+        .option-btn.correct .option-letter {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .option-btn.incorrect .option-letter {
+            background-color: var(--danger);
+            color: white;
         }
         
         .feedback {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
             display: none;
+            font-weight: 500;
         }
         
         .feedback.correct {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: rgba(0, 184, 148, 0.1);
+            color: var(--success);
             display: block;
+            border-left: 4px solid var(--success);
         }
         
         .feedback.incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: rgba(214, 48, 49, 0.1);
+            color: var(--danger);
             display: block;
+            border-left: 4px solid var(--danger);
         }
         
         .next-btn {
@@ -457,34 +832,53 @@
         .result-container {
             display: none;
             text-align: center;
-            padding: 30px;
+            padding: 40px 30px;
         }
         
         .result-title {
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 28px;
+            margin-bottom: 20px;
             color: var(--primary);
+            font-weight: 600;
         }
         
         .result-score {
-            font-size: 48px;
+            font-size: 60px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--dark);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .result-message {
             font-size: 18px;
             margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
         
         .result-coins {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 20px;
+            gap: 15px;
+            font-size: 24px;
             margin-bottom: 30px;
+            color: var(--dark);
+            background-color: rgba(253, 203, 110, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .result-coins i {
             color: var(--warning);
         }
         
@@ -497,35 +891,14 @@
             display: none;
         }
         
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .admin-title {
-            font-size: 24px;
-            color: var(--primary);
-        }
-        
-        .admin-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .question-form {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-        
+        /* Form Elements */
         .form-title {
             font-size: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--primary);
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light);
         }
         
         .form-row {
@@ -538,75 +911,164 @@
         .form-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
         }
         
-        .questions-list {
+        /* Card Styles */
+        .card {
             background-color: var(--white);
             border-radius: 15px;
+            box-shadow: var(--shadow-sm);
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-light);
         }
         
-        .question-item {
-            padding: 20px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .question-item:last-child {
-            border-bottom: none;
-        }
-        
-        .question-item-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
         }
         
-        .question-item-text {
-            font-weight: 500;
-            margin-bottom: 10px;
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
         }
         
-        .question-item-options {
-            margin-left: 20px;
+        .card-title i {
+            margin-right: 12px;
+            color: var(--primary);
+        }
+        
+        /* List Items */
+        .list-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-item:hover {
+            background-color: var(--light);
+        }
+        
+        .list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
         
-        .question-item-option {
-            margin-bottom: 5px;
-            position: relative;
-            padding-left: 20px;
+        .list-item-title {
+            font-weight: 600;
+            color: var(--dark);
         }
         
-        .question-item-option.correct::before {
-            content: "✓";
-            color: var(--success);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
+        .list-item-date {
+            font-size: 13px;
+            color: var(--gray);
         }
         
-        .question-item-actions {
+        .list-item-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .list-item-actions {
             display: flex;
             gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-primary {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+        }
+        
+        .badge-success {
+            background-color: rgba(0, 184, 148, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-danger {
+            background-color: rgba(214, 48, 49, 0.1);
+            color: var(--danger);
+        }
+        
+        .badge-warning {
+            background-color: rgba(253, 203, 110, 0.1);
+            color: var(--dark);
+        }
+        
+        .badge-info {
+            background-color: rgba(9, 132, 227, 0.1);
+            color: var(--info);
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 25px;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--dark);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         /* Google Form Integration */
         .google-form-container {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
         }
         
         .google-form-title {
-            font-size: 20px;
             margin-bottom: 20px;
-            color: var(--primary);
         }
         
         .google-form-input {
@@ -621,255 +1083,17 @@
         
         .google-form-iframe {
             width: 100%;
-            height: 500px;
+            height: 600px;
             border: 1px solid var(--gray-light);
-            border-radius: 8px;
-        }
-        
-        /* Admin User Management */
-        .admin-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--gray-light);
-            margin-bottom: 20px;
-        }
-        
-        .admin-tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .admin-tab.active {
-            border-bottom-color: var(--primary);
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        .admin-tab:hover:not(.active) {
-            border-bottom-color: var(--gray);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .users-list {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .user-item:last-child {
-            border-bottom: none;
-        }
-        
-        .user-item-info {
-            flex: 1;
-        }
-        
-        .user-item-name {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        
-        .user-item-email {
-            font-size: 14px;
-            color: var(--gray);
-            margin-bottom: 5px;
-        }
-        
-        .user-item-stats {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .user-stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-weight: 600;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        .user-item-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .message-form {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-        }
-        
-        .messages-list {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .message-item {
-            padding: 15px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .message-item:last-child {
-            border-bottom: none;
-        }
-        
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .message-sender {
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .message-date {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        .message-content {
-            margin-bottom: 10px;
-        }
-        
-        /* Notifications */
-        .notifications-container {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .notification-item {
-            padding: 15px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-        
-        .notification-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .notification-title {
-            font-weight: 500;
-        }
-        
-        .notification-date {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        .notification-content {
-            margin-bottom: 10px;
-        }
-        
-        /* Upcoming Events */
-        .events-container {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .event-item {
-            padding: 15px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .event-item:last-child {
-            border-bottom: none;
-        }
-        
-        .event-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .event-title {
-            font-weight: 500;
-        }
-        
-        .event-date {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        .event-content {
-            margin-bottom: 10px;
-        }
-        
-        /* User Dashboard */
-        .user-dashboard-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70vh;
-            text-align: center;
-        }
-        
-        .user-welcome {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .user-coins-display {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .user-coins-display i {
-            color: var(--warning);
+            border-radius: 10px;
         }
         
         /* Preview Container */
         .preview-container {
             background-color: var(--white);
             border: 1px solid var(--gray-light);
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
             padding: 20px;
             margin-top: 20px;
         }
@@ -887,15 +1111,50 @@
         }
         
         .preview-container li {
-            padding: 5px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .preview-container li:last-child {
+            border-bottom: none;
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: block !important;
+            }
+        }
+        
+        @media (max-width: 992px) {
             .form-row {
                 grid-template-columns: 1fr;
             }
             
+            .dashboard-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .quiz-stats {
                 flex-direction: column;
                 gap: 10px;
@@ -905,25 +1164,109 @@
                 min-width: auto;
             }
             
-            .admin-actions {
+            .page-actions {
                 flex-direction: column;
-            }
-            
-            .user-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .user-item-actions {
                 width: 100%;
-                justify-content: flex-end;
             }
             
-            .menu-container {
-                right: 10px;
-                width: 200px;
+            .page-actions .btn {
+                width: 100%;
             }
+            
+            .google-form-input {
+                flex-direction: column;
+            }
+            
+            .dashboard-content {
+                padding: 30px 20px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-card {
+                border-radius: 10px;
+            }
+            
+            .auth-header {
+                padding: 20px;
+            }
+            
+            .auth-body {
+                padding: 20px;
+            }
+            
+            .result-score {
+                font-size: 48px;
+            }
+            
+            .result-coins {
+                font-size: 20px;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Utility Classes */
+        .d-flex {
+            display: flex;
+        }
+        
+        .align-items-center {
+            align-items: center;
+        }
+        
+        .justify-content-between {
+            justify-content: space-between;
+        }
+        
+        .w-100 {
+            width: 100%;
+        }
+        
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+        
+        .mt-0 {
+            margin-top: 0 !important;
+        }
+        
+        /* Menu Toggle Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--dark);
+            margin-right: 15px;
         }
     </style>
 </head>
@@ -932,7 +1275,7 @@
     <div id="userLoginPage" class="auth-container">
         <div class="auth-card">
             <div class="auth-header">
-                <h2>Welcome Back!</h2>
+                <h2>Welcome to GMified!</h2>
                 <p>Login to continue your English learning journey</p>
             </div>
             <div class="auth-body">
@@ -944,7 +1287,9 @@
                     <label for="userPassword">Password</label>
                     <input type="password" id="userPassword" class="form-control" placeholder="Enter your password">
                 </div>
-                <button id="userLoginBtn" class="btn btn-primary btn-block">Login</button>
+                <button id="userLoginBtn" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
                 <div class="mt-3 text-center">
                     <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
                     <p>Are you an admin? <a href="#" id="showAdminLogin">Admin Login</a></p>
@@ -977,7 +1322,9 @@
                     <label for="regConfirmPassword">Confirm Password</label>
                     <input type="password" id="regConfirmPassword" class="form-control" placeholder="Confirm your password">
                 </div>
-                <button id="registerBtn" class="btn btn-primary btn-block">Register</button>
+                <button id="registerBtn" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
                 <div class="mt-3 text-center">
                     <p>Already have an account? <a href="#" id="showUserLogin">Login</a></p>
                 </div>
@@ -1001,7 +1348,9 @@
                     <label for="adminPassword">Password</label>
                     <input type="password" id="adminPassword" class="form-control" placeholder="Enter admin password">
                 </div>
-                <button id="adminLoginBtn" class="btn btn-secondary btn-block">Login as Admin</button>
+                <button id="adminLoginBtn" class="btn btn-secondary btn-block">
+                    <i class="fas fa-lock"></i> Login as Admin
+                </button>
                 <div class="mt-3 text-center">
                     <p>Are you a student? <a href="#" id="showUserLoginFromAdmin">User Login</a></p>
                 </div>
@@ -1011,99 +1360,245 @@
     
     <!-- User Dashboard -->
     <div id="userDashboard" class="dashboard">
-        <nav class="navbar">
-            <div class="container navbar-container">
-                <a href="#" class="logo">English<span>Mastery</span></a>
-                <div class="user-info">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>GMified</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-title">Main Menu</div>
+                <a href="#" class="menu-item active" id="dashboardMenuItem">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <div class="menu-title">Learning</div>
+                <a href="#" class="menu-item" id="quizGameMenuItem">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Daily Quiz</span>
+                </a>
+                
+                <div class="menu-title">Community</div>
+                <a href="#" class="menu-item" id="notificationsMenuItem">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="menu-badge" id="notificationBadge">0</span>
+                </a>
+                <a href="#" class="menu-item" id="eventsMenuItem">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Upcoming Events</span>
+                </a>
+                
+                <div class="menu-title">Account</div>
+                <a href="#" class="menu-item" id="profileMenuItem">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="#" class="menu-item" id="userLogoutMenuItem">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
                     <button class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
-            </div>
-        </nav>
-        
-        <!-- User Menu -->
-        <div class="menu-container" id="menuContainer">
-            <div class="menu-item" id="quizGameMenuItem">
-                <i class="fas fa-gamepad"></i>
-                <span>Quiz Game</span>
-            </div>
-            <div class="menu-item" id="notificationsMenuItem">
-                <i class="fas fa-bell"></i>
-                <span>Notifications</span>
-                <span class="badge" id="notificationBadge" style="margin-left: auto; background-color: var(--danger); color: white; border-radius: 10px; padding: 2px 6px; font-size: 12px;">0</span>
-            </div>
-            <div class="menu-item" id="eventsMenuItem">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Upcoming Events</span>
-            </div>
-            <div class="menu-item" id="userLogoutMenuItem">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </div>
-        </div>
-        
-        <div class="container main-content">
-            <!-- User Dashboard Content -->
-            <div class="user-dashboard-content" id="userDashboardContent">
-                <h2 class="user-welcome">Welcome, <span id="welcomeUsername"></span>!</h2>
-                <div class="user-coins-display">
-                    <i class="fas fa-coins"></i>
-                    <span id="userCoinsDisplay">0</span> coins
-                </div>
-                <p>Click the menu button to start your daily quiz or check notifications</p>
-            </div>
-            
-            <!-- Quiz Section -->
-            <div class="quiz-card" id="quizCard">
-                <div class="quiz-header">
-                    <h2 class="quiz-title">English Quiz</h2>
-                    <div class="quiz-stats">
-                        <div class="stat-box">
-                            <div class="stat-label">Score</div>
-                            <div class="stat-value" id="quizScore">0</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Question</div>
-                            <div class="stat-value" id="quizQuestionCount">0/0</div>
-                        </div>
-                    </div>
-                </div>
                 
-                <div class="question-container" id="questionContainer">
-                    <div class="question-text" id="questionText">Loading question...</div>
-                    <div class="options-container" id="optionsContainer">
-                        <!-- Options will be added dynamically -->
-                    </div>
-                    <div class="feedback" id="feedback"></div>
-                    <button class="btn btn-primary next-btn" id="nextQuestionBtn">Next Question</button>
-                </div>
-                
-                <div class="result-container" id="resultContainer">
-                    <h2 class="result-title">Quiz Completed!</h2>
-                    <div class="result-score" id="finalScore">0/0</div>
-                    <div class="result-message" id="resultMessage"></div>
-                    <div class="result-coins">
+                <div class="header-right">
+                    <div class="coin-display">
                         <i class="fas fa-coins"></i>
-                        <span id="earnedCoins">+0</span> coins earned!
+                        <span class="coin-amount" id="userCoinsDisplay">0</span>
                     </div>
-                    <button class="btn btn-primary restart-btn" id="restartQuizBtn">Back to Menu</button>
+                    
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div class="user-name">
+                            <span id="welcomeUsername">User</span>
+                            <i class="fas fa-check-circle verified-badge"></i>
+                        </div>
+                        
+                        <div class="user-menu" id="userMenu">
+                            <a href="#" class="user-menu-item" id="viewProfileMenuItem">
+                                <i class="fas fa-user"></i>
+                                <span>View Profile</span>
+                            </a>
+                            <a href="#" class="user-menu-item" id="editProfileMenuItem">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Profile</span>
+                            </a>
+                            <div class="user-menu-divider"></div>
+                            <a href="#" class="user-menu-item" id="headerLogoutMenuItem">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </header>
             
-            <!-- Notifications Section -->
-            <div class="notifications-container" id="notificationsContainer">
-                <h3>Your Notifications</h3>
-                <div id="notificationsList">
-                    <!-- Notifications will be loaded here -->
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Content -->
+                <div class="dashboard-content" id="userDashboardContent">
+                    <h1 class="welcome-message">Welcome back, <span id="dashboardUsername"></span>!</h1>
+                    <p class="mb-3">Ready to improve your English skills today?</p>
+                    
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="stat-value" id="statCoins">0</div>
+                            <div class="stat-label">Total Coins</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-value" id="statHighScore">0</div>
+                            <div class="stat-label">High Score</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-value" id="statQuizzes">0</div>
+                            <div class="stat-label">Quizzes Taken</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-actions">
+                        <button class="btn btn-primary" id="startQuizBtn">
+                            <i class="fas fa-gamepad"></i> Start Daily Quiz
+                        </button>
+                        <button class="btn btn-outline" id="viewLeaderboardBtn">
+                            <i class="fas fa-chart-line"></i> View Leaderboard
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Events Section -->
-            <div class="events-container" id="eventsContainer">
-                <h3>Upcoming Events</h3>
-                <div id="eventsList">
-                    <!-- Events will be loaded here -->
+                
+                <!-- Quiz Section -->
+                <div class="quiz-card" id="quizCard">
+                    <div class="quiz-header">
+                        <h2 class="quiz-title">
+                            <i class="fas fa-question-circle"></i> Daily English Quiz
+                        </h2>
+                        <div class="quiz-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Score</div>
+                                <div class="stat-value" id="quizScore">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Question</div>
+                                <div class="stat-value" id="quizQuestionCount">0/0</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container" id="questionContainer">
+                        <div class="question-text" id="questionText">Loading question...</div>
+                        <div class="options-container" id="optionsContainer">
+                            <!-- Options will be added dynamically -->
+                        </div>
+                        <div class="feedback" id="feedback"></div>
+                        <button class="btn btn-primary next-btn" id="nextQuestionBtn">
+                            <i class="fas fa-arrow-right"></i> Next Question
+                        </button>
+                    </div>
+                    
+                    <div class="result-container" id="resultContainer">
+                        <h2 class="result-title">Quiz Completed!</h2>
+                        <div class="result-score" id="finalScore">0/0</div>
+                        <div class="result-message" id="resultMessage"></div>
+                        <div class="result-coins">
+                            <i class="fas fa-coins"></i>
+                            <span id="earnedCoins">+0</span> coins earned!
+                        </div>
+                        <button class="btn btn-primary restart-btn" id="restartQuizBtn">
+                            <i class="fas fa-home"></i> Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Notifications Section -->
+                <div class="card" id="notificationsContainer" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-bell"></i> Your Notifications
+                        </h3>
+                        <button class="btn btn-sm btn-outline" id="markAllReadBtn">
+                            <i class="fas fa-check"></i> Mark All Read
+                        </button>
+                    </div>
+                    
+                    <div id="notificationsList">
+                        <!-- Notifications will be loaded here -->
+                        <div class="list-item">
+                            <p>No notifications yet.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Events Section -->
+                <div class="card" id="eventsContainer" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-calendar-alt"></i> Upcoming Events
+                        </h3>
+                    </div>
+                    
+                    <div id="eventsList">
+                        <!-- Events will be loaded here -->
+                        <div class="list-item">
+                            <p>No upcoming events.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Section -->
+                <div class="card" id="profileContainer" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user"></i> My Profile
+                        </h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" id="profileUsername" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="profileEmail">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" class="form-control" id="profileDisplayName">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-danger" id="cancelProfileBtn">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary" id="saveProfileBtn">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1111,210 +1606,377 @@
     
     <!-- Admin Dashboard -->
     <div id="adminDashboard" class="dashboard">
-        <nav class="navbar">
-            <div class="container navbar-container">
-                <a href="#" class="logo">English<span>Mastery</span> Admin</a>
-                <div class="user-info">
-                    <div class="user-details">
+        <!-- Sidebar -->
+        <div class="sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>GMified Admin</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-title">Admin Panel</div>
+                <a href="#" class="menu-item active" data-tab="quiz-management">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz Management</span>
+                </a>
+                <a href="#" class="menu-item" data-tab="user-management">
+                    <i class="fas fa-users"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="#" class="menu-item" data-tab="messaging">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messaging</span>
+                </a>
+                <a href="#" class="menu-item" data-tab="events">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Events</span>
+                </a>
+                
+                <div class="menu-title">Account</div>
+                <a href="#" class="menu-item" id="adminProfileMenuItem">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Admin Profile</span>
+                </a>
+                <a href="#" class="menu-item" id="adminLogoutMenuItem">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="adminMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+                <div class="header-right">
+                    <div class="user-profile" id="adminProfile">
+                        <div class="user-avatar" id="adminAvatar">A</div>
                         <div class="user-name">
                             <span id="adminDisplayName">Admin</span>
                             <i class="fas fa-check-circle verified-badge"></i>
                         </div>
+                        
+                        <div class="user-menu" id="adminMenu">
+                            <a href="#" class="user-menu-item" id="adminViewProfileMenuItem">
+                                <i class="fas fa-user"></i>
+                                <span>View Profile</span>
+                            </a>
+                            <a href="#" class="user-menu-item" id="adminEditProfileMenuItem">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Profile</span>
+                            </a>
+                            <div class="user-menu-divider"></div>
+                            <a href="#" class="user-menu-item" id="adminHeaderLogoutMenuItem">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
                     </div>
-                    <button class="logout-btn" id="adminLogoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
                 </div>
-            </div>
-        </nav>
-        
-        <div class="container main-content">
-            <!-- Admin Tabs -->
-            <div class="admin-tabs">
-                <div class="admin-tab active" data-tab="quiz-management">Quiz Management</div>
-                <div class="admin-tab" data-tab="user-management">User Management</div>
-                <div class="admin-tab" data-tab="messaging">Messaging</div>
-                <div class="admin-tab" data-tab="events">Events</div>
-            </div>
+            </header>
             
-            <!-- Quiz Management Tab -->
-            <div class="tab-content active" id="quiz-management">
-                <div class="admin-header">
-                    <h2 class="admin-title">Quiz Management</h2>
-                    <div class="admin-actions">
-                        <button class="btn btn-primary" id="showQuestionFormBtn">
-                            <i class="fas fa-plus"></i> Add Question
-                        </button>
-                        <button class="btn btn-success" id="refreshQuestionsBtn">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Google Form Integration -->
-                <div class="google-form-container">
-                    <h3 class="google-form-title">Google Form Integration</h3>
-                    <div class="google-form-input">
-                        <input type="text" id="googleFormUrl" class="form-control" placeholder="Paste Google Form URL here">
-                        <button class="btn btn-primary" id="loadGoogleFormBtn">Load Form</button>
-                    </div>
-                    <div class="google-form-iframe-container">
-                        <iframe id="googleFormIframe" class="google-form-iframe" src="" frameborder="0"></iframe>
-                    </div>
-                </div>
-                
-                <!-- Question Form -->
-                <div class="question-form" id="questionForm" style="display: none;">
-                    <h3 class="form-title" id="formTitle">Add New Question</h3>
-                    <div class="form-group">
-                        <label for="questionInput">Question Text</label>
-                        <textarea id="questionInput" class="form-control" rows="3" placeholder="Enter the question text"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="option1">Option 1</label>
-                            <input type="text" id="option1" class="form-control" placeholder="Enter option 1">
-                        </div>
-                        <div class="form-group">
-                            <label for="option2">Option 2</label>
-                            <input type="text" id="option2" class="form-control" placeholder="Enter option 2">
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Quiz Management Tab -->
+                <div class="tab-content active" id="quiz-management">
+                    <div class="page-header">
+                        <h2 class="page-title">
+                            <i class="fas fa-question-circle"></i> Quiz Management
+                        </h2>
+                        <div class="page-actions">
+                            <button class="btn btn-primary" id="showQuestionFormBtn">
+                                <i class="fas fa-plus"></i> Add Question
+                            </button>
+                            <button class="btn btn-success" id="refreshQuestionsBtn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
                         </div>
                     </div>
-                    <div class="form-row">
+                    
+                    <!-- Google Form Integration -->
+                    <div class="card google-form-container">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fab fa-google"></i> Google Form Integration
+                            </h3>
+                        </div>
+                        
+                        <div class="google-form-input">
+                            <input type="text" id="googleFormUrl" class="form-control" placeholder="Paste Google Form URL here">
+                            <button class="btn btn-primary" id="loadGoogleFormBtn">
+                                <i class="fas fa-cloud-download-alt"></i> Load Form
+                            </button>
+                        </div>
+                        <div class="google-form-iframe-container">
+                            <iframe id="googleFormIframe" class="google-form-iframe" src="" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Question Form -->
+                    <div class="card" id="questionForm" style="display: none;">
+                        <div class="card-header">
+                            <h3 class="card-title" id="formTitle">
+                                <i class="fas fa-plus-circle"></i> Add New Question
+                            </h3>
+                        </div>
+                        
                         <div class="form-group">
-                            <label for="option3">Option 3</label>
-                            <input type="text" id="option3" class="form-control" placeholder="Enter option 3">
+                            <label for="questionInput">Question Text</label>
+                            <textarea id="questionInput" class="form-control" rows="3" placeholder="Enter the question text"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="option1">Option 1</label>
+                                <input type="text" id="option1" class="form-control" placeholder="Enter option 1">
+                            </div>
+                            <div class="form-group">
+                                <label for="option2">Option 2</label>
+                                <input type="text" id="option2" class="form-control" placeholder="Enter option 2">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="option3">Option 3</label>
+                                <input type="text" id="option3" class="form-control" placeholder="Enter option 3">
+                            </div>
+                            <div class="form-group">
+                                <label for="option4">Option 4</label>
+                                <input type="text" id="option4" class="form-control" placeholder="Enter option 4">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="option4">Option 4</label>
-                            <input type="text" id="option4" class="form-control" placeholder="Enter option 4">
+                            <label for="correctAnswer">Correct Answer</label>
+                            <select id="correctAnswer" class="form-control">
+                                <option value="0">Option 1</option>
+                                <option value="1">Option 2</option>
+                                <option value="2">Option 3</option>
+                                <option value="3">Option 4</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-danger" id="cancelQuestionBtn">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button class="btn btn-primary" id="saveQuestionBtn">
+                                <i class="fas fa-save"></i> Save Question
+                            </button>
+                        </div>
+                        <input type="hidden" id="editQuestionId" value="">
+                    </div>
+                    
+                    <!-- Questions List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-list"></i> Questions List
+                            </h3>
+                        </div>
+                        
+                        <div id="questionsListContainer">
+                            <!-- Questions will be loaded here -->
+                            <div class="list-item">
+                                <p>No questions found. Add some questions to get started.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="correctAnswer">Correct Answer</label>
-                        <select id="correctAnswer" class="form-control">
-                            <option value="0">Option 1</option>
-                            <option value="1">Option 2</option>
-                            <option value="2">Option 3</option>
-                            <option value="3">Option 4</option>
-                        </select>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn btn-danger" id="cancelQuestionBtn">Cancel</button>
-                        <button class="btn btn-primary" id="saveQuestionBtn">Save Question</button>
-                    </div>
-                    <input type="hidden" id="editQuestionId" value="">
                 </div>
                 
-                <!-- Questions List -->
-                <div class="questions-list">
-                    <h3>Questions List</h3>
-                    <div id="questionsListContainer">
-                        <!-- Questions will be loaded here -->
+                <!-- User Management Tab -->
+                <div class="tab-content" id="user-management">
+                    <div class="page-header">
+                        <h2 class="page-title">
+                            <i class="fas fa-users"></i> User Management
+                        </h2>
+                        <div class="page-actions">
+                            <button class="btn btn-success" id="refreshUsersBtn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- User Management Tab -->
-            <div class="tab-content" id="user-management">
-                <div class="admin-header">
-                    <h2 class="admin-title">User Management</h2>
-                    <div class="admin-actions">
-                        <button class="btn btn-success" id="refreshUsersBtn">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="users-list">
-                    <h3>Registered Users</h3>
-                    <div id="usersListContainer">
-                        <!-- Users will be loaded here -->
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Messaging Tab -->
-            <div class="tab-content" id="messaging">
-                <div class="admin-header">
-                    <h2 class="admin-title">Messaging Center</h2>
-                    <div class="admin-actions">
-                        <button class="btn btn-success" id="refreshMessagesBtn">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Message Form -->
-                <div class="message-form">
-                    <h3>Send Message</h3>
-                    <div class="form-group">
-                        <label for="messageRecipient">Recipient</label>
-                        <select id="messageRecipient" class="form-control">
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-user-friends"></i> Registered Users
+                            </h3>
+                        </div>
+                        
+                        <div id="usersListContainer">
                             <!-- Users will be loaded here -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="messageSubject">Subject</label>
-                        <input type="text" id="messageSubject" class="form-control" placeholder="Enter message subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="messageContent">Message</label>
-                        <textarea id="messageContent" class="form-control" rows="5" placeholder="Enter your message"></textarea>
-                    </div>
-                    <button class="btn btn-primary" id="sendMessageBtn">Send Message</button>
-                </div>
-                
-                <!-- Messages List -->
-                <div class="messages-list">
-                    <h3>Sent Messages</h3>
-                    <div id="messagesListContainer">
-                        <!-- Messages will be loaded here -->
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Events Tab -->
-            <div class="tab-content" id="events">
-                <div class="admin-header">
-                    <h2 class="admin-title">Events Management</h2>
-                    <div class="admin-actions">
-                        <button class="btn btn-primary" id="addEventBtn">
-                            <i class="fas fa-plus"></i> Add Event
-                        </button>
-                        <button class="btn btn-success" id="refreshEventsBtn">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
+                            <div class="list-item">
+                                <p>No users found.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Event Form -->
-                <div class="question-form" id="eventForm" style="display: none;">
-                    <h3 class="form-title" id="eventFormTitle">Add New Event</h3>
-                    <div class="form-group">
-                        <label for="eventTitle">Event Title</label>
-                        <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title">
+                <!-- Messaging Tab -->
+                <div class="tab-content" id="messaging">
+                    <div class="page-header">
+                        <h2 class="page-title">
+                            <i class="fas fa-envelope"></i> Messaging Center
+                        </h2>
+                        <div class="page-actions">
+                            <button class="btn btn-success" id="refreshMessagesBtn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="eventDate">Event Date</label>
-                        <input type="date" id="eventDate" class="form-control">
+                    
+                    <!-- Message Form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </h3>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="messageRecipient">Recipient</label>
+                            <select id="messageRecipient" class="form-control">
+                                <!-- Users will be loaded here -->
+                                <option value="">Select a user</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="messageSubject">Subject</label>
+                            <input type="text" id="messageSubject" class="form-control" placeholder="Enter message subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="messageContent">Message</label>
+                            <textarea id="messageContent" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" id="sendMessageBtn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="eventDescription">Description</label>
-                        <textarea id="eventDescription" class="form-control" rows="3" placeholder="Enter event description"></textarea>
+                    
+                    <!-- Messages List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-inbox"></i> Sent Messages
+                            </h3>
+                        </div>
+                        
+                        <div id="messagesListContainer">
+                            <!-- Messages will be loaded here -->
+                            <div class="list-item">
+                                <p>No messages sent yet.</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- Events Tab -->
+                <div class="tab-content" id="events">
+                    <div class="page-header">
+                        <h2 class="page-title">
+                            <i class="fas fa-calendar-alt"></i> Events Management
+                        </h2>
+                        <div class="page-actions">
+                            <button class="btn btn-primary" id="addEventBtn">
+                                <i class="fas fa-plus"></i> Add Event
+                            </button>
+                            <button class="btn btn-success" id="refreshEventsBtn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Form -->
+                    <div class="card" id="eventForm" style="display: none;">
+                        <div class="card-header">
+                            <h3 class="card-title" id="eventFormTitle">
+                                <i class="fas fa-plus-circle"></i> Add New Event
+                            </h3>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventTitle">Event Title</label>
+                            <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDate">Event Date</label>
+                            <input type="date" id="eventDate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" class="form-control" rows="3" placeholder="Enter event description"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-danger" id="cancelEventBtn">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button class="btn btn-primary" id="saveEventBtn">
+                                <i class="fas fa-save"></i> Save Event
+                            </button>
+                        </div>
+                        <input type="hidden" id="editEventId" value="">
+                    </div>
+                    
+                    <!-- Events List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-calendar-check"></i> Upcoming Events
+                            </h3>
+                        </div>
+                        
+                        <div id="eventsAdminListContainer">
+                            <!-- Events will be loaded here -->
+                            <div class="list-item">
+                                <p>No events found. Add some events to get started.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Admin Profile Tab -->
+                <div class="card" id="adminProfileContainer" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-cog"></i> Admin Profile
+                        </h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" id="adminProfileUsername" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" class="form-control" id="adminProfileDisplayName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Change Password</label>
+                        <input type="password" class="form-control" id="adminProfilePassword" placeholder="Leave blank to keep current password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" id="adminProfileConfirmPassword" placeholder="Confirm new password">
+                    </div>
+                    
                     <div class="form-actions">
-                        <button class="btn btn-danger" id="cancelEventBtn">Cancel</button>
-                        <button class="btn btn-primary" id="saveEventBtn">Save Event</button>
-                    </div>
-                    <input type="hidden" id="editEventId" value="">
-                </div>
-                
-                <!-- Events List -->
-                <div class="questions-list">
-                    <h3>Upcoming Events</h3>
-                    <div id="eventsAdminListContainer">
-                        <!-- Events will be loaded here -->
+                        <button class="btn btn-danger" id="cancelAdminProfileBtn">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary" id="saveAdminProfileBtn">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1342,19 +2004,25 @@
             const registerBtn = document.getElementById('registerBtn');
             
             // User dashboard elements
-            const welcomeUsername = document.getElementById('welcomeUsername');
-            const userCoinsDisplay = document.getElementById('userCoinsDisplay');
+            const sidebar = document.getElementById('sidebar');
             const menuToggle = document.getElementById('menuToggle');
-            const menuContainer = document.getElementById('menuContainer');
-            const quizGameMenuItem = document.getElementById('quizGameMenuItem');
-            const notificationsMenuItem = document.getElementById('notificationsMenuItem');
-            const eventsMenuItem = document.getElementById('eventsMenuItem');
-            const userLogoutMenuItem = document.getElementById('userLogoutMenuItem');
+            const welcomeUsername = document.getElementById('welcomeUsername');
+            const dashboardUsername = document.getElementById('dashboardUsername');
+            const userCoinsDisplay = document.getElementById('userCoinsDisplay');
+            const userAvatar = document.getElementById('userAvatar');
+            const userProfile = document.getElementById('userProfile');
+            const userMenu = document.getElementById('userMenu');
             const notificationBadge = document.getElementById('notificationBadge');
             const userDashboardContent = document.getElementById('userDashboardContent');
             const quizCard = document.getElementById('quizCard');
             const notificationsContainer = document.getElementById('notificationsContainer');
             const eventsContainer = document.getElementById('eventsContainer');
+            const profileContainer = document.getElementById('profileContainer');
+            
+            // Dashboard stats
+            const statCoins = document.getElementById('statCoins');
+            const statHighScore = document.getElementById('statHighScore');
+            const statQuizzes = document.getElementById('statQuizzes');
             
             // Quiz elements
             const quizScore = document.getElementById('quizScore');
@@ -1369,15 +2037,60 @@
             const earnedCoins = document.getElementById('earnedCoins');
             const restartQuizBtn = document.getElementById('restartQuizBtn');
             
+            // Menu items
+            const dashboardMenuItem = document.getElementById('dashboardMenuItem');
+            const quizGameMenuItem = document.getElementById('quizGameMenuItem');
+            const notificationsMenuItem = document.getElementById('notificationsMenuItem');
+            const eventsMenuItem = document.getElementById('eventsMenuItem');
+            const profileMenuItem = document.getElementById('profileMenuItem');
+            const userLogoutMenuItem = document.getElementById('userLogoutMenuItem');
+            const headerLogoutMenuItem = document.getElementById('headerLogoutMenuItem');
+            const viewProfileMenuItem = document.getElementById('viewProfileMenuItem');
+            const editProfileMenuItem = document.getElementById('editProfileMenuItem');
+            
+            // Dashboard buttons
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
+            
+            // Profile elements
+            const profileUsername = document.getElementById('profileUsername');
+            const profileEmail = document.getElementById('profileEmail');
+            const profileDisplayName = document.getElementById('profileDisplayName');
+            const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+            const saveProfileBtn = document.getElementById('saveProfileBtn');
+            
             // Notifications elements
             const notificationsList = document.getElementById('notificationsList');
+            const markAllReadBtn = document.getElementById('markAllReadBtn');
             
             // Events elements
             const eventsList = document.getElementById('eventsList');
             
             // Admin dashboard elements
-            const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+            const adminSidebar = document.getElementById('adminSidebar');
+            const adminMenuToggle = document.getElementById('adminMenuToggle');
             const adminDisplayName = document.getElementById('adminDisplayName');
+            const adminAvatar = document.getElementById('adminAvatar');
+            const adminProfile = document.getElementById('adminProfile');
+            const adminMenu = document.getElementById('adminMenu');
+            const adminLogoutMenuItem = document.getElementById('adminLogoutMenuItem');
+            const adminHeaderLogoutMenuItem = document.getElementById('adminHeaderLogoutMenuItem');
+            const adminProfileMenuItem = document.getElementById('adminProfileMenuItem');
+            const adminViewProfileMenuItem = document.getElementById('adminViewProfileMenuItem');
+            const adminEditProfileMenuItem = document.getElementById('adminEditProfileMenuItem');
+            const adminProfileContainer = document.getElementById('adminProfileContainer');
+            const adminProfileUsername = document.getElementById('adminProfileUsername');
+            const adminProfileDisplayName = document.getElementById('adminProfileDisplayName');
+            const adminProfilePassword = document.getElementById('adminProfilePassword');
+            const adminProfileConfirmPassword = document.getElementById('adminProfileConfirmPassword');
+            const cancelAdminProfileBtn = document.getElementById('cancelAdminProfileBtn');
+            const saveAdminProfileBtn = document.getElementById('saveAdminProfileBtn');
+            
+            // Admin tabs
+            const adminTabs = document.querySelectorAll('#adminSidebar .menu-item[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            // Quiz management elements
             const showQuestionFormBtn = document.getElementById('showQuestionFormBtn');
             const refreshQuestionsBtn = document.getElementById('refreshQuestionsBtn');
             const questionForm = document.getElementById('questionForm');
@@ -1397,10 +2110,6 @@
             const googleFormUrl = document.getElementById('googleFormUrl');
             const loadGoogleFormBtn = document.getElementById('loadGoogleFormBtn');
             const googleFormIframe = document.getElementById('googleFormIframe');
-            
-            // Admin tabs
-            const adminTabs = document.querySelectorAll('.admin-tab');
-            const tabContents = document.querySelectorAll('.tab-content');
             
             // User management elements
             const refreshUsersBtn = document.getElementById('refreshUsersBtn');
@@ -1440,8 +2149,11 @@
             const ADMIN_CREDENTIALS = {
                 username: 'admin',
                 password: 'admin123',
-                displayName: 'Quiz Master',
-                isAdmin: true
+                displayName: 'GMified Admin',
+                isAdmin: true,
+                coins: 0,
+                highScore: 0,
+                quizzesTaken: 0
             };
             
             // Initialize
@@ -1452,22 +2164,26 @@
             
             // Event Listeners
             // Auth navigation
-            showRegisterBtn.addEventListener('click', () => {
+            showRegisterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 userLoginPage.style.display = 'none';
                 registerPage.style.display = 'flex';
             });
             
-            showUserLoginBtn.addEventListener('click', () => {
+            showUserLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 registerPage.style.display = 'none';
                 userLoginPage.style.display = 'flex';
             });
             
-            showAdminLoginBtn.addEventListener('click', () => {
+            showAdminLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 userLoginPage.style.display = 'none';
                 adminLoginPage.style.display = 'flex';
             });
             
-            showUserLoginFromAdminBtn.addEventListener('click', () => {
+            showUserLoginFromAdminBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 adminLoginPage.style.display = 'none';
                 userLoginPage.style.display = 'flex';
             });
@@ -1477,26 +2193,147 @@
             registerBtn.addEventListener('click', registerUser);
             adminLoginBtn.addEventListener('click', loginAdmin);
             
-            // User dashboard
-            menuToggle.addEventListener('click', toggleMenu);
-            quizGameMenuItem.addEventListener('click', showQuizGame);
-            notificationsMenuItem.addEventListener('click', showNotifications);
-            eventsMenuItem.addEventListener('click', showEvents);
-            userLogoutMenuItem.addEventListener('click', logoutUser);
+            // Menu toggle
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+            
+            adminMenuToggle.addEventListener('click', () => {
+                adminSidebar.classList.toggle('active');
+            });
+            
+            // User profile dropdown
+            userProfile.addEventListener('click', () => {
+                userMenu.classList.toggle('show');
+            });
+            
+            adminProfile.addEventListener('click', () => {
+                adminMenu.classList.toggle('show');
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userProfile.contains(e.target)) {
+                    userMenu.classList.remove('show');
+                }
+                
+                if (!adminProfile.contains(e.target)) {
+                    adminMenu.classList.remove('show');
+                }
+            });
+            
+            // User dashboard menu items
+            dashboardMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showDashboardContent();
+                setActiveMenuItem(dashboardMenuItem);
+            });
+            
+            quizGameMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showQuizGame();
+                setActiveMenuItem(quizGameMenuItem);
+            });
+            
+            notificationsMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotifications();
+                setActiveMenuItem(notificationsMenuItem);
+            });
+            
+            eventsMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showEvents();
+                setActiveMenuItem(eventsMenuItem);
+            });
+            
+            profileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showProfile();
+                setActiveMenuItem(profileMenuItem);
+            });
+            
+            viewProfileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showProfile();
+                setActiveMenuItem(profileMenuItem);
+                userMenu.classList.remove('show');
+            });
+            
+            editProfileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showProfile(true);
+                setActiveMenuItem(profileMenuItem);
+                userMenu.classList.remove('show');
+            });
+            
+            userLogoutMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutUser();
+            });
+            
+            headerLogoutMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutUser();
+            });
+            
+            // Dashboard buttons
+            startQuizBtn.addEventListener('click', showQuizGame);
+            viewLeaderboardBtn.addEventListener('click', () => {
+                alert('Leaderboard feature coming soon!');
+            });
+            
+            // Quiz elements
             nextQuestionBtn.addEventListener('click', nextQuestion);
             restartQuizBtn.addEventListener('click', backToMenu);
             
-            // Admin dashboard
-            adminLogoutBtn.addEventListener('click', logoutAdmin);
-            showQuestionFormBtn.addEventListener('click', showQuestionForm);
-            refreshQuestionsBtn.addEventListener('click', refreshQuestions);
-            cancelQuestionBtn.addEventListener('click', cancelQuestion);
-            saveQuestionBtn.addEventListener('click', saveQuestion);
-            loadGoogleFormBtn.addEventListener('click', loadGoogleForm);
+            // Profile elements
+            cancelProfileBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showProfile();
+            });
+            
+            saveProfileBtn.addEventListener('click', saveUserProfile);
+            
+            // Notifications elements
+            markAllReadBtn.addEventListener('click', markAllNotificationsAsRead);
+            
+            // Admin menu items
+            adminProfileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAdminProfile();
+                setActiveMenuItem(adminProfileMenuItem);
+            });
+            
+            adminViewProfileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAdminProfile();
+                setActiveMenuItem(adminProfileMenuItem);
+                adminMenu.classList.remove('show');
+            });
+            
+            adminEditProfileMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAdminProfile(true);
+                setActiveMenuItem(adminProfileMenuItem);
+                adminMenu.classList.remove('show');
+            });
+            
+            adminLogoutMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutAdmin();
+            });
+            
+            adminHeaderLogoutMenuItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutAdmin();
+            });
             
             // Admin tabs
             adminTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
                     // Remove active class from all tabs and contents
                     adminTabs.forEach(t => t.classList.remove('active'));
                     tabContents.forEach(c => c.classList.remove('active'));
@@ -1518,6 +2355,13 @@
                 });
             });
             
+            // Quiz management
+            showQuestionFormBtn.addEventListener('click', showQuestionForm);
+            refreshQuestionsBtn.addEventListener('click', refreshQuestions);
+            cancelQuestionBtn.addEventListener('click', cancelQuestion);
+            saveQuestionBtn.addEventListener('click', saveQuestion);
+            loadGoogleFormBtn.addEventListener('click', loadGoogleForm);
+            
             // User management
             refreshUsersBtn.addEventListener('click', renderUsersList);
             
@@ -1530,6 +2374,14 @@
             refreshEventsBtn.addEventListener('click', renderAdminEventsList);
             cancelEventBtn.addEventListener('click', cancelEvent);
             saveEventBtn.addEventListener('click', saveEvent);
+            
+            // Admin profile
+            cancelAdminProfileBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAdminProfile();
+            });
+            
+            saveAdminProfileBtn.addEventListener('click', saveAdminProfile);
             
             // Functions
             function loadQuestions() {
@@ -1698,8 +2550,10 @@
                     username,
                     email,
                     password,
-                    coins: 0,
+                    displayName: username,
+                    coins: 100, // Starting coins
                     highScore: 0,
+                    quizzesTaken: 0,
                     isAdmin: false,
                     lastQuizDate: null
                 };
@@ -1742,8 +2596,17 @@
                 adminLoginPage.style.display = 'none';
                 userDashboard.style.display = 'block';
                 
-                welcomeUsername.textContent = currentUser.username;
+                // Update user info
+                welcomeUsername.textContent = currentUser.displayName || currentUser.username;
+                dashboardUsername.textContent = currentUser.displayName || currentUser.username;
                 userCoinsDisplay.textContent = currentUser.coins;
+                statCoins.textContent = currentUser.coins;
+                statHighScore.textContent = currentUser.highScore;
+                statQuizzes.textContent = currentUser.quizzesTaken || 0;
+                
+                // Set user avatar
+                const initials = (currentUser.displayName || currentUser.username).split(' ').map(n => n[0]).join('').toUpperCase();
+                userAvatar.textContent = initials;
                 
                 // Update notification badge
                 updateNotificationBadge();
@@ -1760,35 +2623,13 @@
                 
                 adminDisplayName.textContent = currentUser.displayName || 'Admin';
                 
+                // Set admin avatar
+                const initials = (currentUser.displayName || currentUser.username).split(' ').map(n => n[0]).join('').toUpperCase();
+                adminAvatar.textContent = initials;
+                
+                // Show quiz management by default
                 renderQuestionsList();
                 renderAdminEventsList();
-            }
-            
-            function toggleMenu() {
-                if (menuContainer.style.display === 'block') {
-                    hideMenu();
-                } else {
-                    showMenu();
-                }
-            }
-            
-            function showMenu() {
-                menuContainer.style.display = 'block';
-                // Close menu when clicking outside
-                setTimeout(() => {
-                    document.addEventListener('click', closeMenuOnClickOutside);
-                }, 10);
-            }
-            
-            function hideMenu() {
-                menuContainer.style.display = 'none';
-                document.removeEventListener('click', closeMenuOnClickOutside);
-            }
-            
-            function closeMenuOnClickOutside(e) {
-                if (!menuContainer.contains(e.target)) {
-                    hideMenu();
-                }
             }
             
             function showDashboardContent() {
@@ -1796,11 +2637,12 @@
                 quizCard.style.display = 'none';
                 notificationsContainer.style.display = 'none';
                 eventsContainer.style.display = 'none';
+                profileContainer.style.display = 'none';
+                
+                setActiveMenuItem(dashboardMenuItem);
             }
             
             function showQuizGame() {
-                hideMenu();
-                
                 // Check if user has already played today
                 const today = new Date().toDateString();
                 if (currentUser.lastQuizDate === today) {
@@ -1811,34 +2653,98 @@
                 userDashboardContent.style.display = 'none';
                 notificationsContainer.style.display = 'none';
                 eventsContainer.style.display = 'none';
+                profileContainer.style.display = 'none';
                 quizCard.style.display = 'block';
                 
                 startQuiz();
             }
             
             function showNotifications() {
-                hideMenu();
                 userDashboardContent.style.display = 'none';
                 quizCard.style.display = 'none';
                 eventsContainer.style.display = 'none';
+                profileContainer.style.display = 'none';
                 notificationsContainer.style.display = 'block';
                 
                 renderUserNotifications();
             }
             
             function showEvents() {
-                hideMenu();
                 userDashboardContent.style.display = 'none';
                 quizCard.style.display = 'none';
                 notificationsContainer.style.display = 'none';
+                profileContainer.style.display = 'none';
                 eventsContainer.style.display = 'block';
                 
                 renderUserEvents();
             }
             
+            function showProfile(editMode = false) {
+                userDashboardContent.style.display = 'none';
+                quizCard.style.display = 'none';
+                notificationsContainer.style.display = 'none';
+                eventsContainer.style.display = 'none';
+                profileContainer.style.display = 'block';
+                
+                // Fill profile data
+                profileUsername.value = currentUser.username;
+                profileEmail.value = currentUser.email || '';
+                profileDisplayName.value = currentUser.displayName || currentUser.username;
+                
+                if (editMode) {
+                    profileEmail.readOnly = false;
+                    profileDisplayName.readOnly = false;
+                    saveProfileBtn.style.display = 'block';
+                } else {
+                    profileEmail.readOnly = true;
+                    profileDisplayName.readOnly = true;
+                    saveProfileBtn.style.display = 'none';
+                }
+            }
+            
+            function showAdminProfile(editMode = false) {
+                // Hide all tab contents
+                tabContents.forEach(tab => tab.style.display = 'none');
+                
+                // Show profile container
+                adminProfileContainer.style.display = 'block';
+                
+                // Fill admin profile data
+                adminProfileUsername.value = currentUser.username;
+                adminProfileDisplayName.value = currentUser.displayName;
+                
+                if (editMode) {
+                    adminProfileDisplayName.readOnly = false;
+                    adminProfilePassword.style.display = 'block';
+                    adminProfileConfirmPassword.style.display = 'block';
+                    document.querySelector('label[for="adminProfilePassword"]').style.display = 'block';
+                    document.querySelector('label[for="adminProfileConfirmPassword"]').style.display = 'block';
+                    saveAdminProfileBtn.style.display = 'block';
+                } else {
+                    adminProfileDisplayName.readOnly = true;
+                    adminProfilePassword.style.display = 'none';
+                    adminProfileConfirmPassword.style.display = 'none';
+                    document.querySelector('label[for="adminProfilePassword"]').style.display = 'none';
+                    document.querySelector('label[for="adminProfileConfirmPassword"]').style.display = 'none';
+                    saveAdminProfileBtn.style.display = 'none';
+                }
+            }
+            
             function backToMenu() {
                 resultContainer.style.display = 'none';
                 showDashboardContent();
+            }
+            
+            function hideMenu() {
+                sidebar.classList.remove('active');
+                adminSidebar.classList.remove('active');
+            }
+            
+            function setActiveMenuItem(menuItem) {
+                document.querySelectorAll('.sidebar-menu .menu-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                menuItem.classList.add('active');
             }
             
             function startQuiz() {
@@ -1859,10 +2765,22 @@
                     questionText.textContent = question.question;
                     optionsContainer.innerHTML = '';
                     
+                    const optionLetters = ['A', 'B', 'C', 'D'];
+                    
                     question.options.forEach((option, index) => {
                         const button = document.createElement('button');
                         button.className = 'option-btn';
-                        button.textContent = option;
+                        
+                        const optionLetter = document.createElement('span');
+                        optionLetter.className = 'option-letter';
+                        optionLetter.textContent = optionLetters[index];
+                        
+                        const optionText = document.createElement('span');
+                        optionText.textContent = option;
+                        
+                        button.appendChild(optionLetter);
+                        button.appendChild(optionText);
+                        
                         button.addEventListener('click', () => selectAnswer(index));
                         optionsContainer.appendChild(button);
                     });
@@ -1947,6 +2865,7 @@
                 // Update user's coins and high score
                 currentUser.coins += coinsEarned;
                 currentUser.highScore = Math.max(currentUser.highScore, score);
+                currentUser.quizzesTaken = (currentUser.quizzesTaken || 0) + 1;
                 
                 // Mark quiz as completed for today
                 currentUser.lastQuizDate = new Date().toDateString();
@@ -1954,6 +2873,9 @@
                 
                 // Update dashboard display
                 userCoinsDisplay.textContent = currentUser.coins;
+                statCoins.textContent = currentUser.coins;
+                statHighScore.textContent = currentUser.highScore;
+                statQuizzes.textContent = currentUser.quizzesTaken;
                 updateNotificationBadge();
             }
             
@@ -1973,7 +2895,7 @@
                 );
                 
                 notificationBadge.textContent = userMessages.length;
-                notificationBadge.style.display = userMessages.length > 0 ? 'block' : 'none';
+                notificationBadge.style.display = userMessages.length > 0 ? 'inline-block' : 'none';
             }
             
             function renderUserNotifications() {
@@ -1988,53 +2910,46 @@
                 );
                 
                 if (userMessages.length === 0) {
-                    notificationsList.innerHTML = '<p>No notifications yet.</p>';
+                    notificationsList.innerHTML = '<div class="list-item"><p>No notifications yet.</p></div>';
                     return;
                 }
                 
-                // Mark messages as read
-                userMessages.forEach(message => {
-                    message.read = true;
-                });
-                saveMessages(messages);
-                updateNotificationBadge();
-                
                 userMessages.forEach(message => {
                     const messageItem = document.createElement('div');
-                    messageItem.className = 'notification-item';
+                    messageItem.className = 'list-item';
                     
                     const messageHeader = document.createElement('div');
-                    messageHeader.className = 'notification-header';
+                    messageHeader.className = 'list-item-header';
                     
-                    const senderSpan = document.createElement('div');
-                    senderSpan.className = 'notification-title';
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'list-item-title';
                     
-                    const senderName = document.createElement('span');
-                    senderName.textContent = message.sender;
+                    const senderSpan = document.createElement('span');
+                    senderSpan.textContent = message.sender;
                     
-                    senderSpan.appendChild(senderName);
+                    titleDiv.appendChild(senderSpan);
                     
                     // Add verified badge if sender is admin
                     if (message.sender === ADMIN_CREDENTIALS.username) {
                         const verifiedBadge = document.createElement('i');
                         verifiedBadge.className = 'fas fa-check-circle verified-badge';
                         verifiedBadge.style.marginLeft = '5px';
-                        senderSpan.appendChild(verifiedBadge);
+                        titleDiv.appendChild(verifiedBadge);
                     }
                     
                     const dateSpan = document.createElement('span');
-                    dateSpan.className = 'notification-date';
+                    dateSpan.className = 'list-item-date';
                     dateSpan.textContent = new Date(message.timestamp).toLocaleString();
                     
-                    messageHeader.appendChild(senderSpan);
+                    messageHeader.appendChild(titleDiv);
                     messageHeader.appendChild(dateSpan);
                     
                     const subjectDiv = document.createElement('div');
-                    subjectDiv.className = 'notification-content';
+                    subjectDiv.className = 'list-item-content';
                     subjectDiv.innerHTML = `<strong>Subject:</strong> ${message.subject}`;
                     
                     const contentDiv = document.createElement('div');
-                    contentDiv.className = 'notification-content';
+                    contentDiv.className = 'list-item-content';
                     contentDiv.textContent = message.content;
                     
                     messageItem.appendChild(messageHeader);
@@ -2045,12 +2960,32 @@
                 });
             }
             
+            function markAllNotificationsAsRead() {
+                if (!currentUser) return;
+                
+                const messages = getMessages();
+                let updated = false;
+                
+                messages.forEach(message => {
+                    if (message.recipient === currentUser.username && !message.read) {
+                        message.read = true;
+                        updated = true;
+                    }
+                });
+                
+                if (updated) {
+                    saveMessages(messages);
+                    updateNotificationBadge();
+                    renderUserNotifications();
+                }
+            }
+            
             function renderUserEvents() {
                 const events = getEvents();
                 eventsList.innerHTML = '';
                 
                 if (events.length === 0) {
-                    eventsList.innerHTML = '<p>No upcoming events.</p>';
+                    eventsList.innerHTML = '<div class="list-item"><p>No upcoming events.</p></div>';
                     return;
                 }
                 
@@ -2059,24 +2994,24 @@
                 
                 events.forEach(event => {
                     const eventItem = document.createElement('div');
-                    eventItem.className = 'event-item';
+                    eventItem.className = 'list-item';
                     
                     const eventHeader = document.createElement('div');
-                    eventHeader.className = 'event-header';
+                    eventHeader.className = 'list-item-header';
                     
-                    const titleSpan = document.createElement('div');
-                    titleSpan.className = 'event-title';
-                    titleSpan.textContent = event.title;
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'list-item-title';
+                    titleDiv.textContent = event.title;
                     
                     const dateSpan = document.createElement('span');
-                    dateSpan.className = 'event-date';
+                    dateSpan.className = 'list-item-date';
                     dateSpan.textContent = new Date(event.date).toLocaleDateString();
                     
-                    eventHeader.appendChild(titleSpan);
+                    eventHeader.appendChild(titleDiv);
                     eventHeader.appendChild(dateSpan);
                     
                     const contentDiv = document.createElement('div');
-                    contentDiv.className = 'event-content';
+                    contentDiv.className = 'list-item-content';
                     contentDiv.textContent = event.description;
                     
                     eventItem.appendChild(eventHeader);
@@ -2084,6 +3019,74 @@
                     
                     eventsList.appendChild(eventItem);
                 });
+            }
+            
+            function saveUserProfile() {
+                const email = profileEmail.value.trim();
+                const displayName = profileDisplayName.value.trim();
+                
+                // Validate inputs
+                if (!email) {
+                    alert('Please enter your email');
+                    return;
+                }
+                
+                if (!displayName) {
+                    alert('Please enter your display name');
+                    return;
+                }
+                
+                // Update user data
+                currentUser.email = email;
+                currentUser.displayName = displayName;
+                saveUser(currentUser);
+                
+                // Update UI
+                welcomeUsername.textContent = displayName;
+                dashboardUsername.textContent = displayName;
+                const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
+                userAvatar.textContent = initials;
+                
+                // Show view mode
+                showProfile();
+            }
+            
+            function saveAdminProfile() {
+                const displayName = adminProfileDisplayName.value.trim();
+                const password = adminProfilePassword.value.trim();
+                const confirmPassword = adminProfileConfirmPassword.value.trim();
+                
+                // Validate inputs
+                if (!displayName) {
+                    alert('Please enter your display name');
+                    return;
+                }
+                
+                if (password && password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+                
+                // Update admin data
+                currentUser.displayName = displayName;
+                
+                if (password) {
+                    currentUser.password = password;
+                }
+                
+                saveUser(currentUser);
+                
+                // Update UI
+                adminDisplayName.textContent = displayName;
+                const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
+                adminAvatar.textContent = initials;
+                
+                // Clear password fields
+                adminProfilePassword.value = '';
+                adminProfileConfirmPassword.value = '';
+                
+                // Show view mode
+                showAdminProfile();
             }
             
             // Admin functions
@@ -2159,22 +3162,23 @@
                 questionsListContainer.innerHTML = '';
                 
                 if (questions.length === 0) {
-                    questionsListContainer.innerHTML = '<p>No questions found. Add some questions to get started.</p>';
+                    questionsListContainer.innerHTML = '<div class="list-item"><p>No questions found. Add some questions to get started.</p></div>';
                     return;
                 }
                 
                 questions.forEach((question, index) => {
                     const questionItem = document.createElement('div');
-                    questionItem.className = 'question-item';
+                    questionItem.className = 'list-item';
                     
                     const questionHeader = document.createElement('div');
-                    questionHeader.className = 'question-item-header';
+                    questionHeader.className = 'list-item-header';
                     
-                    const questionNumber = document.createElement('span');
+                    const questionNumber = document.createElement('div');
+                    questionNumber.className = 'list-item-title';
                     questionNumber.textContent = `Question ${index + 1}`;
                     
                     const questionActions = document.createElement('div');
-                    questionActions.className = 'question-item-actions';
+                    questionActions.className = 'list-item-actions';
                     
                     const editBtn = document.createElement('button');
                     editBtn.className = 'btn btn-warning btn-sm';
@@ -2192,19 +3196,21 @@
                     questionHeader.appendChild(questionActions);
                     
                     const questionText = document.createElement('div');
-                    questionText.className = 'question-item-text';
+                    questionText.className = 'list-item-content';
                     questionText.textContent = question.question;
                     
                     const optionsList = document.createElement('div');
-                    optionsList.className = 'question-item-options';
+                    optionsList.className = 'list-item-content';
+                    optionsList.style.marginLeft = '20px';
                     
                     question.options.forEach((option, optIndex) => {
                         const optionItem = document.createElement('div');
-                        optionItem.className = 'question-item-option';
+                        optionItem.style.marginBottom = '5px';
                         if (optIndex === question.correctAnswer) {
-                            optionItem.classList.add('correct');
+                            optionItem.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success); margin-right: 5px;"></i> ${option}`;
+                        } else {
+                            optionItem.innerHTML = `<i class="fas fa-circle" style="color: var(--gray-light); margin-right: 5px;"></i> ${option}`;
                         }
-                        optionItem.textContent = option;
                         optionsList.appendChild(optionItem);
                     });
                     
@@ -2270,78 +3276,63 @@
                 usersListContainer.innerHTML = '';
                 
                 if (users.length === 0) {
-                    usersListContainer.innerHTML = '<p>No users found.</p>';
+                    usersListContainer.innerHTML = '<div class="list-item"><p>No users found.</p></div>';
                     return;
                 }
                 
                 users.forEach(user => {
                     const userItem = document.createElement('div');
-                    userItem.className = 'user-item';
+                    userItem.className = 'list-item';
                     
-                    const userInfo = document.createElement('div');
-                    userInfo.className = 'user-item-info';
+                    const userHeader = document.createElement('div');
+                    userHeader.className = 'list-item-header';
                     
                     const userName = document.createElement('div');
-                    userName.className = 'user-item-name';
-                    userName.textContent = user.username;
+                    userName.className = 'list-item-title';
+                    userName.textContent = user.displayName || user.username;
                     
-                    const userEmail = document.createElement('div');
-                    userEmail.className = 'user-item-email';
-                    userEmail.textContent = user.email;
+                    const userEmail = document.createElement('span');
+                    userEmail.className = 'list-item-date';
+                    userEmail.textContent = user.email || 'No email';
                     
-                    userInfo.appendChild(userName);
-                    userInfo.appendChild(userEmail);
+                    userHeader.appendChild(userName);
+                    userHeader.appendChild(userEmail);
                     
                     const userStats = document.createElement('div');
-                    userStats.className = 'user-item-stats';
+                    userStats.className = 'list-item-content';
+                    userStats.style.display = 'flex';
+                    userStats.style.gap = '20px';
+                    userStats.style.margin = '10px 0';
                     
                     const coinsStat = document.createElement('div');
-                    coinsStat.className = 'user-stat';
-                    
-                    const coinsNumber = document.createElement('div');
-                    coinsNumber.className = 'stat-number';
-                    coinsNumber.innerHTML = `<i class="fas fa-coins" style="color: var(--warning);"></i> ${user.coins}`;
-                    
-                    const coinsLabel = document.createElement('div');
-                    coinsLabel.className = 'stat-label';
-                    coinsLabel.textContent = 'Coins';
-                    
-                    coinsStat.appendChild(coinsNumber);
-                    coinsStat.appendChild(coinsLabel);
+                    coinsStat.innerHTML = `<i class="fas fa-coins" style="color: var(--warning);"></i> <strong>${user.coins || 0}</strong> coins`;
                     
                     const scoreStat = document.createElement('div');
-                    scoreStat.className = 'user-stat';
+                    scoreStat.innerHTML = `<i class="fas fa-trophy" style="color: var(--gold);"></i> <strong>${user.highScore || 0}</strong> high score`;
                     
-                    const scoreNumber = document.createElement('div');
-                    scoreNumber.className = 'stat-number';
-                    scoreNumber.textContent = user.highScore || '0';
-                    
-                    const scoreLabel = document.createElement('div');
-                    scoreLabel.className = 'stat-label';
-                    scoreLabel.textContent = 'High Score';
-                    
-                    scoreStat.appendChild(scoreNumber);
-                    scoreStat.appendChild(scoreLabel);
+                    const quizzesStat = document.createElement('div');
+                    quizzesStat.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success);"></i> <strong>${user.quizzesTaken || 0}</strong> quizzes`;
                     
                     userStats.appendChild(coinsStat);
                     userStats.appendChild(scoreStat);
+                    userStats.appendChild(quizzesStat);
                     
                     const userActions = document.createElement('div');
-                    userActions.className = 'user-item-actions';
+                    userActions.className = 'list-item-actions';
                     
                     const messageBtn = document.createElement('button');
                     messageBtn.className = 'btn btn-info btn-sm';
                     messageBtn.innerHTML = '<i class="fas fa-envelope"></i> Message';
                     messageBtn.addEventListener('click', () => {
                         // Switch to messaging tab and pre-select this user
-                        document.querySelector('.admin-tab[data-tab="messaging"]').click();
+                        document.querySelector('.menu-item[data-tab="messaging"]').click();
                         messageRecipient.value = user.username;
                         messageSubject.focus();
                     });
                     
                     userActions.appendChild(messageBtn);
                     
-                    userItem.appendChild(userInfo);
+                    userItem.appendChild(userHeader);
                     userItem.appendChild(userStats);
                     userItem.appendChild(userActions);
                     
@@ -2362,7 +3353,7 @@
                 users.forEach(user => {
                     const option = document.createElement('option');
                     option.value = user.username;
-                    option.textContent = user.username;
+                    option.textContent = user.displayName || user.username;
                     messageRecipient.appendChild(option);
                 });
             }
@@ -2372,7 +3363,7 @@
                 messagesListContainer.innerHTML = '';
                 
                 if (messages.length === 0) {
-                    messagesListContainer.innerHTML = '<p>No messages sent yet.</p>';
+                    messagesListContainer.innerHTML = '<div class="list-item"><p>No messages sent yet.</p></div>';
                     return;
                 }
                 
@@ -2380,34 +3371,34 @@
                 const adminMessages = messages.filter(msg => msg.sender === ADMIN_CREDENTIALS.username);
                 
                 if (adminMessages.length === 0) {
-                    messagesListContainer.innerHTML = '<p>No messages sent yet.</p>';
+                    messagesListContainer.innerHTML = '<div class="list-item"><p>No messages sent yet.</p></div>';
                     return;
                 }
                 
                 adminMessages.forEach((message, index) => {
                     const messageItem = document.createElement('div');
-                    messageItem.className = 'message-item';
+                    messageItem.className = 'list-item';
                     
                     const messageHeader = document.createElement('div');
-                    messageHeader.className = 'message-header';
+                    messageHeader.className = 'list-item-header';
                     
-                    const recipientSpan = document.createElement('div');
-                    recipientSpan.className = 'message-sender';
-                    recipientSpan.textContent = `To: ${message.recipient}`;
+                    const recipientDiv = document.createElement('div');
+                    recipientDiv.className = 'list-item-title';
+                    recipientDiv.textContent = `To: ${message.recipient}`;
                     
                     const dateSpan = document.createElement('span');
-                    dateSpan.className = 'message-date';
+                    dateSpan.className = 'list-item-date';
                     dateSpan.textContent = new Date(message.timestamp).toLocaleString();
                     
-                    messageHeader.appendChild(recipientSpan);
+                    messageHeader.appendChild(recipientDiv);
                     messageHeader.appendChild(dateSpan);
                     
                     const subjectDiv = document.createElement('div');
-                    subjectDiv.className = 'message-content';
+                    subjectDiv.className = 'list-item-content';
                     subjectDiv.innerHTML = `<strong>Subject:</strong> ${message.subject}`;
                     
                     const contentDiv = document.createElement('div');
-                    contentDiv.className = 'message-content';
+                    contentDiv.className = 'list-item-content';
                     contentDiv.textContent = message.content;
                     
                     const deleteBtn = document.createElement('button');
@@ -2552,7 +3543,7 @@
                 eventsAdminListContainer.innerHTML = '';
                 
                 if (events.length === 0) {
-                    eventsAdminListContainer.innerHTML = '<p>No events found. Add some events to get started.</p>';
+                    eventsAdminListContainer.innerHTML = '<div class="list-item"><p>No events found. Add some events to get started.</p></div>';
                     return;
                 }
                 
@@ -2561,20 +3552,28 @@
                 
                 events.forEach((event, index) => {
                     const eventItem = document.createElement('div');
-                    eventItem.className = 'question-item';
+                    eventItem.className = 'list-item';
                     
                     const eventHeader = document.createElement('div');
-                    eventHeader.className = 'question-item-header';
+                    eventHeader.className = 'list-item-header';
                     
-                    const eventTitle = document.createElement('span');
-                    eventTitle.textContent = event.title;
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'list-item-title';
+                    titleDiv.textContent = event.title;
                     
-                    const eventDate = document.createElement('span');
-                    eventDate.textContent = new Date(event.date).toLocaleDateString();
-                    eventDate.style.color = 'var(--gray)';
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'list-item-date';
+                    dateSpan.textContent = new Date(event.date).toLocaleDateString();
+                    
+                    eventHeader.appendChild(titleDiv);
+                    eventHeader.appendChild(dateSpan);
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'list-item-content';
+                    contentDiv.textContent = event.description;
                     
                     const eventActions = document.createElement('div');
-                    eventActions.className = 'question-item-actions';
+                    eventActions.className = 'list-item-actions';
                     
                     const editBtn = document.createElement('button');
                     editBtn.className = 'btn btn-warning btn-sm';
@@ -2588,16 +3587,10 @@
                     
                     eventActions.appendChild(editBtn);
                     eventActions.appendChild(deleteBtn);
-                    eventHeader.appendChild(eventTitle);
-                    eventHeader.appendChild(eventDate);
-                    eventHeader.appendChild(eventActions);
-                    
-                    const contentDiv = document.createElement('div');
-                    contentDiv.className = 'question-item-text';
-                    contentDiv.textContent = event.description;
                     
                     eventItem.appendChild(eventHeader);
                     eventItem.appendChild(contentDiv);
+                    eventItem.appendChild(eventActions);
                     
                     eventsAdminListContainer.appendChild(eventItem);
                 });
